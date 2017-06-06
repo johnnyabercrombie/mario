@@ -48,16 +48,13 @@ shared_ptr<Texture> texture2;
 
 int g_GiboLen;
 int g_width, g_height;
-float cTheta = 0;
-float cWidth = 0;
-float cHeight = 0;
 float g_rotate = 0; // was -1.5
 float g_scale = 1;
 vec3 g_trans;
 vec3 eye, target, upV;
 vector<vec3> thwompIdxs, whompIdxs;
 vector<float> thwompYaws, whompYaws;
-float cspeed = 0.5;
+float cspeed = 0.05;
 float phi, theta;
 mat4 view;
 
@@ -81,22 +78,22 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
         light->pos.x -= 1;
     } else if(key == GLFW_KEY_E && action == GLFW_PRESS) {
         light->pos.x += 1;
-    } else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+    } else if (key == GLFW_KEY_A) {
         eye.x += cspeed * (-1 * u.x);
         target.x += cspeed * (-1 * u.x);
         eye.z += cspeed * (-1 * u.z);
         target.z += cspeed * (-1 * u.z);
-    } else if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+    } else if (key == GLFW_KEY_D) {
         eye.x += cspeed * u.x;
         target.x += cspeed * u.x;
         eye.z += cspeed * u.z;
         target.z += cspeed * u.z;
-    } else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+    } else if (key == GLFW_KEY_W) {
         eye.x += cspeed * (-1 * w.x);
         target.x += cspeed * (-1 * w.x);
         eye.z += cspeed * (-1 * w.z);
         target.z += cspeed * (-1 * w.z);
-    } else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+    } else if (key == GLFW_KEY_S) {
         eye.x += cspeed * w.x;
         target.x += cspeed * w.x;
         eye.z += cspeed * w.z;
@@ -129,8 +126,6 @@ float oldx, oldy;
 float radius = 200;
 bool started = false;
 static void cursor_callback(GLFWwindow *window, double xpos, double ypos) {
-    cout << "cursX " << xpos << " cursY " << ypos << endl;
-    
     if (!started) {
         oldx = xpos;
         oldy = ypos;
@@ -226,13 +221,13 @@ static void init()
     Gmin = vec3(1.1754E+38F);
     Gmax = vec3(-1.1754E+38F);
 
-    bool rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "mario/mario.obj").c_str());
+    bool rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "mario/mario.obj").c_str(), (RESOURCE_DIR + "mario/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i));
+            shape->createShape(TOshapes.at(i), objMaterials);
             shape->measure();
             shape->init();
             
@@ -248,7 +243,7 @@ static void init()
         }
     }
 
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/thwomp.obj").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
@@ -270,7 +265,7 @@ static void init()
         }
     }
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/whomp.obj").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
@@ -292,7 +287,7 @@ static void init()
         }
     }
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/fortress.obj").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/fortress.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
@@ -341,7 +336,7 @@ static void init()
     light->intensity = vec3(1, 1, 1);
     light->pos = vec3(0, 5, 0);
     
-    eye = vec3(0,0.5,0);
+    eye = vec3(0,1,0);
     target = vec3(0,0,0);
     upV = vec3(0,1,0);
     
@@ -383,13 +378,13 @@ static void init()
    // Intialize textures
    //////////////////////////////////////////////////////
 	texture0 = make_shared<Texture>();
-   texture0->setFilename(RESOURCE_DIR + "/mario/Logo.png");
+   texture0->setFilename(RESOURCE_DIR + "mario/Logo.png");
    texture0->init();
    texture0->setUnit(0);
    texture0->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
    texture1 = make_shared<Texture>();
-   texture1->setFilename(RESOURCE_DIR + "/world/2C725067_c.png");
+   texture1->setFilename(RESOURCE_DIR + "world/2C725067_c.png");
    texture1->init();
    texture1->setUnit(1);
    texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
@@ -442,7 +437,6 @@ static void init()
     prog2->addAttribute("vertNor");
  	prog2->addAttribute("vertTex");
     prog2->addUniform("Texture2");
-
 }
 
 
@@ -462,7 +456,6 @@ static void render()
 	// Clear framebuffer.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	// Create the matrix stacks 
 	auto P = make_shared<MatrixStack>();
 	auto MV = make_shared<MatrixStack>();
@@ -473,31 +466,30 @@ static void render()
         MV->loadIdentity();
         MV->rotate(g_rotate, vec3(1, 0, 0));
         MV->scale(g_scale);
-        MV->translate(-1.0f*g_trans);
+        MV->translate(-1.0f * g_trans);
 
         //draw the mario mesh
         prog0->bind();
-    
         MV->pushMatrix();
-            MV->translate(vec3(0, cHeight, -5));
-            MV->pushMatrix();
-               MV->translate(vec3(-1, 0, 0));
-    //           MV->rotate(cTheta, vec3(0, 1, 0));
-                texture0->bind(prog0->getUniform("Texture0"));
-                glUniformMatrix4fv(prog0->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-                glUniformMatrix4fv(prog0->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-                glUniformMatrix4fv(prog0->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-                for (int i = 0; i < mario.size(); ++i) {
-                    mario[i]->draw(prog0);
-                }
+//            MV->translate(vec3(-1, 0, 0));
+//           MV->rotate(cTheta, vec3(0, 1, 0));
+//            MV->scale(vec3(0.2,0.2,0.2));
+            texture0->bind(prog0->getUniform("Texture0"));
+            glUniformMatrix4fv(prog0->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
+            glUniformMatrix4fv(prog0->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
+            glUniformMatrix4fv(prog0->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            for (int i = 0; i < mario.size(); ++i) {
+                mario[i]->draw(prog0);
+            }
         MV->popMatrix();
         prog0->unbind();
 
         //draw the world sphere
         prog1->bind();
         MV->pushMatrix();
-            MV->translate(vec3(1, 0, 0));
+//            MV->translate(vec3(1, 0, 0));
     //            MV->rotate(cTheta, vec3(0, 1, 0));
+            MV->scale(vec3(10,10,10));
             texture1->bind(prog1->getUniform("Texture1"));
             glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
             glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
@@ -514,34 +506,34 @@ static void render()
         prog1->unbind();
 
         //draw the ground plane	
-        prog2->bind();
-        MV->pushMatrix();
-            texture2->bind(prog2->getUniform("Texture2"));
-            glUniformMatrix4fv(prog2->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-            glUniformMatrix4fv(prog2->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-            glUniformMatrix4fv(prog2->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-
-            glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, GrndBuffObj);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-            glEnableVertexAttribArray(1);
-            glBindBuffer(GL_ARRAY_BUFFER, GrndNorBuffObj);
-            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-             
-            glEnableVertexAttribArray(2);
-            glBindBuffer(GL_ARRAY_BUFFER, GrndTexBuffObj);
-            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-            // draw!
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GIndxBuffObj);
-            glDrawElements(GL_TRIANGLES, g_GiboLen, GL_UNSIGNED_SHORT, 0);
-
-            glDisableVertexAttribArray(0);
-            glDisableVertexAttribArray(1);
-            glDisableVertexAttribArray(2);
-        MV->popMatrix();
-        prog2->unbind();
+//        prog2->bind();
+//        MV->pushMatrix();
+//            texture2->bind(prog2->getUniform("Texture2"));
+//            glUniformMatrix4fv(prog2->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
+//            glUniformMatrix4fv(prog2->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
+//            glUniformMatrix4fv(prog2->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+//
+//            glEnableVertexAttribArray(0);
+//            glBindBuffer(GL_ARRAY_BUFFER, GrndBuffObj);
+//            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+//
+//            glEnableVertexAttribArray(1);
+//            glBindBuffer(GL_ARRAY_BUFFER, GrndNorBuffObj);
+//            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+//             
+//            glEnableVertexAttribArray(2);
+//            glBindBuffer(GL_ARRAY_BUFFER, GrndTexBuffObj);
+//            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+//
+//            // draw!
+//            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GIndxBuffObj);
+//            glDrawElements(GL_TRIANGLES, g_GiboLen, GL_UNSIGNED_SHORT, 0);
+//
+//            glDisableVertexAttribArray(0);
+//            glDisableVertexAttribArray(1);
+//            glDisableVertexAttribArray(2);
+//        MV->popMatrix();
+//        prog2->unbind();
     
     MV->popMatrix();
 	P->popMatrix();

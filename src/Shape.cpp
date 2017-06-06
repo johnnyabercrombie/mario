@@ -14,7 +14,8 @@ Shape::Shape() :
 	eleBufID(0),
 	posBufID(0),
 	norBufID(0),
-	texBufID(0)
+	texBufID(0),
+    matBufID(0)
 {
     min = glm::vec3(0);
     max = glm::vec3(0);
@@ -25,12 +26,24 @@ Shape::~Shape()
 }
 
 /* copy the data from the shape to this object */
+void Shape::createShape(tinyobj::shape_t & shape, vector<tinyobj::material_t> &objMaterials)
+{
+    posBuf = shape.mesh.positions;
+    norBuf = shape.mesh.normals;
+    texBuf = shape.mesh.texcoords;
+    eleBuf = shape.mesh.indices;
+    matBuf = shape.mesh.material_ids; // newly added
+    materials = objMaterials;
+}
+
+/* copy the data from the shape to this object */
 void Shape::createShape(tinyobj::shape_t & shape)
 {
     posBuf = shape.mesh.positions;
     norBuf = shape.mesh.normals;
     texBuf = shape.mesh.texcoords;
     eleBuf = shape.mesh.indices;
+    matBuf = shape.mesh.material_ids; // newly added
 }
 
 void Shape::loadMesh(const string &meshName)
@@ -182,6 +195,11 @@ void Shape::init()
 		glBindBuffer(GL_ARRAY_BUFFER, texBufID);
 		glBufferData(GL_ARRAY_BUFFER, texBuf.size()*sizeof(float), &texBuf[0], GL_STATIC_DRAW);
 	}
+    
+    // newly added
+    glGenBuffers(1, &matBufID);
+    glBindBuffer(GL_ARRAY_BUFFER, matBufID);
+    glBufferData(GL_ARRAY_BUFFER, matBuf.size()*sizeof(int), &matBuf[0], GL_STATIC_DRAW);
 	
 	// Send the element array to the GPU
 	glGenBuffers(1, &eleBufID);
@@ -218,6 +236,12 @@ void Shape::draw(const shared_ptr<Program> prog) const
 		glBindBuffer(GL_ARRAY_BUFFER, texBufID);
 		glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, (const void *)0);
 	}
+
+//    for (int i: matBuf) {
+//        cout << materials[i].diffuse[0] << endl;
+//    }
+////    glBindBuffer(GL_ARRAY_BUFFER, matBufID);
+////    glVertexAttribPointer(h_nor, 3, GL_FLOAT, GL_FALSE, 0, (const void *)0);
 	
 	// Bind element buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBufID);

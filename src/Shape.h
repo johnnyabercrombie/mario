@@ -16,6 +16,7 @@ public:
 	Shape();
 	virtual ~Shape();
 	void loadMesh(const std::string &meshName);
+    void createShape(tinyobj::shape_t & shape, std::vector<tinyobj::material_t> &objMaterials);
     void createShape(tinyobj::shape_t & shape);
 	void init();
 	void draw(const std::shared_ptr<Program> prog) const;
@@ -30,10 +31,13 @@ private:
 	std::vector<float> posBuf;
 	std::vector<float> norBuf;
 	std::vector<float> texBuf;
+    std::vector<int> matBuf;
+    std::vector<tinyobj::material_t> materials;
 	unsigned eleBufID;
 	unsigned posBufID;
 	unsigned norBufID;
 	unsigned texBufID;
+    unsigned matBufID;
 };
 
 #endif
