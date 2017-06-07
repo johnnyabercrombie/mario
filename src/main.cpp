@@ -42,9 +42,6 @@ vector<shared_ptr<Shape>> thwomp;
 vector<shared_ptr<Shape>> whomp;
 vector<shared_ptr<Shape>> world;
 shared_ptr<LightSource> light;
-shared_ptr<Texture> texture0;
-shared_ptr<Texture> texture1;
-shared_ptr<Texture> texture2;
 
 int g_GiboLen;
 int g_width, g_height;
@@ -227,7 +224,8 @@ static void init()
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i), objMaterials.at(i));
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
             shape->measure();
             shape->init();
             
@@ -243,13 +241,14 @@ static void init()
         }
     }
 
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i));
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
             shape->measure();
             shape->init();
             
@@ -265,13 +264,14 @@ static void init()
         }
     }
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/Whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i));
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
             shape->measure();
             shape->init();
             
@@ -287,13 +287,14 @@ static void init()
         }
     }
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/fortress.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/WF.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
     if (!rc) {
         cerr << errStr << endl;
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i));
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
             shape->measure();
             shape->init();
             
@@ -366,7 +367,7 @@ static void init()
 	
 	prog1 = make_shared<Program>();
 	prog1->setVerbose(true);
-	prog1->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag1.glsl");
+	prog1->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
 	prog1->init();
   
 //	prog2 = make_shared<Program>();
@@ -377,17 +378,17 @@ static void init()
 	//////////////////////////////////////////////////////
    // Intialize textures
    //////////////////////////////////////////////////////
-   texture0 = make_shared<Texture>();
-   texture0->setFilename(RESOURCE_DIR + "mario/Logo.png");
-   texture0->init();
-   texture0->setUnit(0);
-   texture0->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+//   texture0 = make_shared<Texture>();
+//   texture0->setFilename(RESOURCE_DIR + "mario/Logo.png");
+//   texture0->init();
+//   texture0->setUnit(0);
+//   texture0->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
-   texture1 = make_shared<Texture>();
-   texture1->setFilename(RESOURCE_DIR + "world/2C725067_c.png");
-   texture1->init();
-   texture1->setUnit(1);
-   texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+//   texture1 = make_shared<Texture>();
+//   texture1->setFilename(RESOURCE_DIR + "world/2C725067_c.png");
+//   texture1->init();
+//   texture1->setUnit(1);
+//   texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
    
 //	texture2 = make_shared<Texture>();
 //   texture2->setFilename(RESOURCE_DIR + "grass.jpg");
@@ -408,7 +409,7 @@ static void init()
 	prog0->addAttribute("vertPos");
     prog0->addAttribute("vertNor");
 	prog0->addAttribute("vertTex");
-    prog0->addUniform("Texture0");
+    prog0->addUniform("Texture");
 	
 	prog1->addUniform("P");
 	prog1->addUniform("M");
@@ -422,7 +423,7 @@ static void init()
 	prog1->addAttribute("vertPos");
     prog1->addAttribute("vertNor");
 	prog1->addAttribute("vertTex");
-    prog1->addUniform("Texture1");
+    prog1->addUniform("Texture");
 	
 //	prog2->addUniform("P");
 //	prog2->addUniform("M");
@@ -486,26 +487,26 @@ static void render()
         MV->popMatrix();
         prog0->unbind();
 
-        //draw the world sphere
-        prog1->bind();
-        MV->pushMatrix();
-//            MV->translate(vec3(1, 0, 0));
-    //            MV->rotate(cTheta, vec3(0, 1, 0));
-            MV->scale(vec3(10,10,10));
-            texture1->bind(prog1->getUniform("Texture1"));
-            glUniformMatrix4fv(prog1->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-            glUniformMatrix4fv(prog1->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-            glUniformMatrix4fv(prog1->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-            glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
-            glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
-            for (int i = 0; i < world.size(); ++i) {
+//        draw the world sphere
+//        prog1->bind();
+//        MV->pushMatrix();
+////            MV->translate(vec3(1, 0, 0));
+//    //            MV->rotate(cTheta, vec3(0, 1, 0));
+//            MV->scale(vec3(10,10,10));
+////            texture1->bind(prog1->getUniform("Texture1"));
+////            glUniformMatrix4fv(prog1->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
+//            glUniformMatrix4fv(prog1->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
+//            glUniformMatrix4fv(prog1->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+//            glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
+//            glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
+//            for (int i = 0; i < world.size(); ++i) {
 //                world[i]->draw(prog1);
-            }
-            glDisableVertexAttribArray(0);
-            glDisableVertexAttribArray(1);
-            glDisableVertexAttribArray(2);
-        MV->popMatrix();
-        prog1->unbind();
+//            }
+//            glDisableVertexAttribArray(0);
+//            glDisableVertexAttribArray(1);
+//            glDisableVertexAttribArray(2);
+//        MV->popMatrix();
+//        prog1->unbind();
 
         //draw the ground plane	
 //        prog2->bind();
@@ -544,8 +545,8 @@ static void render()
 int main(int argc, char **argv)
 {
 
-	g_width = 640 * 1.5;
-	g_height = 480 * 1.5;
+	g_width = 640;
+	g_height = 480;
 	/* we will always need to load external shaders to set up where */
 	if(argc < 2) {
       cout << "Please specify the resource directory." << endl;
@@ -604,8 +605,8 @@ int main(int argc, char **argv)
 	// Initialize scene.
     init();
     cout << "done initializing shaders" << endl;
-	initGeom();
-	cout << "done initializing geometry" << endl;
+//	initGeom();
+//	cout << "done initializing geometry" << endl;
 
 	// Loop until the user closes the window.
 	while(!glfwWindowShouldClose(window)) {

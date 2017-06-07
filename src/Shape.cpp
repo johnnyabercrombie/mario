@@ -36,13 +36,13 @@ void Shape::createShape(tinyobj::shape_t & shape, tinyobj::material_t &objMateri
     matBuf = shape.mesh.material_ids; // newly added
     material = objMaterial; // newly added
     
-//    if (material->ambient_texname.length() > 0) {
-//        texture = make_shared<Texture>();
-//        texture->setFilename("../../resources/mario/" + material->ambient_texname);
-//        texture->init();
-//        texture->setUnit(0);
-//        texture->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-//    }
+    if (material.ambient_texname.length() > 0) {
+        texture = make_shared<Texture>();
+        texture->setFilename("../../resources/mario/" + material.ambient_texname);
+        texture->init();
+        texture->setUnit(0);
+        texture->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+    }
 }
 
 /* copy the data from the shape to this object */
@@ -251,7 +251,9 @@ void Shape::draw(const shared_ptr<Program> prog) const
     glUniform3fv(prog->getUniform("MatSpec"), 1, material.specular);
     glUniform1f(prog->getUniform("shine"), material.shininess);
     
-    texture->bind(prog->getUniform("Texture0"));
+    if (texture != nullptr) {
+        texture->bind(prog->getUniform("Texture"));
+    }
 	
 	// Bind element buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBufID);
