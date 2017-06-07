@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include "tiny_obj_loader.h"
+#include "Texture.h"
 #include <glm/gtc/type_ptr.hpp>
 
 class Program;
@@ -16,7 +17,7 @@ public:
 	Shape();
 	virtual ~Shape();
 	void loadMesh(const std::string &meshName);
-    void createShape(tinyobj::shape_t & shape, std::vector<tinyobj::material_t> &objMaterials);
+    void createShape(tinyobj::shape_t & shape, tinyobj::material_t & objMaterial);
     void createShape(tinyobj::shape_t & shape);
 	void init();
 	void draw(const std::shared_ptr<Program> prog) const;
@@ -32,7 +33,8 @@ private:
 	std::vector<float> norBuf;
 	std::vector<float> texBuf;
     std::vector<int> matBuf;
-    std::vector<tinyobj::material_t> materials;
+    tinyobj::material_t material;
+    std::shared_ptr<Texture> texture;
 	unsigned eleBufID;
 	unsigned posBufID;
 	unsigned norBufID;

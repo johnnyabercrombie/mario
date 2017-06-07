@@ -34,7 +34,7 @@ GLFWwindow *window; // Main application window
 string RESOURCE_DIR = ""; // Where the resources are loaded from
 shared_ptr<Program> prog0;
 shared_ptr<Program> prog1;
-shared_ptr<Program> prog2;
+//shared_ptr<Program> prog2;
 //shared_ptr<Shape> world;
 //shared_ptr<Shape> shape;
 vector<shared_ptr<Shape>> mario;
@@ -227,7 +227,7 @@ static void init()
     } else {
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
-            shape->createShape(TOshapes.at(i), objMaterials);
+            shape->createShape(TOshapes.at(i), objMaterials.at(i));
             shape->measure();
             shape->init();
             
@@ -369,15 +369,15 @@ static void init()
 	prog1->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag1.glsl");
 	prog1->init();
   
-	prog2 = make_shared<Program>();
-	prog2->setVerbose(true);
-	prog2->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag2.glsl");
-	prog2->init();
+//	prog2 = make_shared<Program>();
+//	prog2->setVerbose(true);
+//	prog2->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag2.glsl");
+//	prog2->init();
 	
 	//////////////////////////////////////////////////////
    // Intialize textures
    //////////////////////////////////////////////////////
-	texture0 = make_shared<Texture>();
+   texture0 = make_shared<Texture>();
    texture0->setFilename(RESOURCE_DIR + "mario/Logo.png");
    texture0->init();
    texture0->setUnit(0);
@@ -389,11 +389,11 @@ static void init()
    texture1->setUnit(1);
    texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
    
-	texture2 = make_shared<Texture>();
-   texture2->setFilename(RESOURCE_DIR + "grass.jpg");
-   texture2->init();
-   texture2->setUnit(2);
-   texture2->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+//	texture2 = make_shared<Texture>();
+//   texture2->setFilename(RESOURCE_DIR + "grass.jpg");
+//   texture2->init();
+//   texture2->setUnit(2);
+//   texture2->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
 	/// Add uniform and attributes to each of the programs
 	prog0->addUniform("P");
@@ -424,19 +424,19 @@ static void init()
 	prog1->addAttribute("vertTex");
     prog1->addUniform("Texture1");
 	
-	prog2->addUniform("P");
-	prog2->addUniform("M");
-    prog2->addUniform("V");
-    prog2->addUniform("lightPos");
-    prog2->addUniform("lightIntensity");
-    prog2->addUniform("MatAmb");
-    prog2->addUniform("MatDif");
-    prog2->addUniform("MatSpec");
-    prog2->addUniform("shine");
-	prog2->addAttribute("vertPos");
-    prog2->addAttribute("vertNor");
- 	prog2->addAttribute("vertTex");
-    prog2->addUniform("Texture2");
+//	prog2->addUniform("P");
+//	prog2->addUniform("M");
+//    prog2->addUniform("V");
+//    prog2->addUniform("lightPos");
+//    prog2->addUniform("lightIntensity");
+//    prog2->addUniform("MatAmb");
+//    prog2->addUniform("MatDif");
+//    prog2->addUniform("MatSpec");
+//    prog2->addUniform("shine");
+//	prog2->addAttribute("vertPos");
+//    prog2->addAttribute("vertNor");
+// 	prog2->addAttribute("vertTex");
+//    prog2->addUniform("Texture2");
 }
 
 
@@ -474,10 +474,12 @@ static void render()
 //            MV->translate(vec3(-1, 0, 0));
 //           MV->rotate(cTheta, vec3(0, 1, 0));
 //            MV->scale(vec3(0.2,0.2,0.2));
-            texture0->bind(prog0->getUniform("Texture0"));
+//            texture0->bind(prog0->getUniform("Texture0"));
             glUniformMatrix4fv(prog0->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(prog0->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(prog0->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(prog0->getUniform("lightPos"), 1, value_ptr(light->pos));
+            glUniform3fv(prog0->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < mario.size(); ++i) {
                 mario[i]->draw(prog0);
             }
@@ -491,13 +493,13 @@ static void render()
     //            MV->rotate(cTheta, vec3(0, 1, 0));
             MV->scale(vec3(10,10,10));
             texture1->bind(prog1->getUniform("Texture1"));
-            glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
-            glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             glUniformMatrix4fv(prog1->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(prog1->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(prog1->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
+            glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < world.size(); ++i) {
-                world[i]->draw(prog1);
+//                world[i]->draw(prog1);
             }
             glDisableVertexAttribArray(0);
             glDisableVertexAttribArray(1);

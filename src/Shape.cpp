@@ -26,14 +26,23 @@ Shape::~Shape()
 }
 
 /* copy the data from the shape to this object */
-void Shape::createShape(tinyobj::shape_t & shape, vector<tinyobj::material_t> &objMaterials)
+void Shape::createShape(tinyobj::shape_t & shape, tinyobj::material_t &objMaterial)
 {
     posBuf = shape.mesh.positions;
     norBuf = shape.mesh.normals;
     texBuf = shape.mesh.texcoords;
     eleBuf = shape.mesh.indices;
+    
     matBuf = shape.mesh.material_ids; // newly added
-    materials = objMaterials;
+    material = objMaterial; // newly added
+    
+//    if (material->ambient_texname.length() > 0) {
+//        texture = make_shared<Texture>();
+//        texture->setFilename("../../resources/mario/" + material->ambient_texname);
+//        texture->init();
+//        texture->setUnit(0);
+//        texture->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+//    }
 }
 
 /* copy the data from the shape to this object */
@@ -197,9 +206,9 @@ void Shape::init()
 	}
     
     // newly added
-    glGenBuffers(1, &matBufID);
-    glBindBuffer(GL_ARRAY_BUFFER, matBufID);
-    glBufferData(GL_ARRAY_BUFFER, matBuf.size()*sizeof(int), &matBuf[0], GL_STATIC_DRAW);
+//    glGenBuffers(1, &matBufID);
+//    glBindBuffer(GL_ARRAY_BUFFER, matBufID);
+//    glBufferData(GL_ARRAY_BUFFER, matBuf.size()*sizeof(int), &matBuf[0], GL_STATIC_DRAW);
 	
 	// Send the element array to the GPU
 	glGenBuffers(1, &eleBufID);
@@ -237,11 +246,12 @@ void Shape::draw(const shared_ptr<Program> prog) const
 		glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, (const void *)0);
 	}
 
-//    for (int i: matBuf) {
-//        cout << materials[i].diffuse[0] << endl;
-//    }
-////    glBindBuffer(GL_ARRAY_BUFFER, matBufID);
-////    glVertexAttribPointer(h_nor, 3, GL_FLOAT, GL_FALSE, 0, (const void *)0);
+    glUniform3fv(prog->getUniform("MatAmb"), 1, material.ambient);
+    glUniform3fv(prog->getUniform("MatDif"), 1, material.diffuse);
+    glUniform3fv(prog->getUniform("MatSpec"), 1, material.specular);
+    glUniform1f(prog->getUniform("shine"), material.shininess);
+    
+    texture->bind(prog->getUniform("Texture0"));
 	
 	// Bind element buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBufID);
