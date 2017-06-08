@@ -17,7 +17,7 @@ public:
 	Shape();
 	virtual ~Shape();
 	void loadMesh(const std::string &meshName);
-    void createShape(tinyobj::shape_t & shape, tinyobj::material_t & objMaterial);
+    void createShape(tinyobj::shape_t & shape, tinyobj::material_t & objMaterial, const std::string resourceDir);
     void createShape(tinyobj::shape_t & shape);
 	void init();
 	void draw(const std::shared_ptr<Program> prog) const;

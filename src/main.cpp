@@ -32,11 +32,8 @@ struct LightSource {
 
 GLFWwindow *window; // Main application window
 string RESOURCE_DIR = ""; // Where the resources are loaded from
-shared_ptr<Program> prog0;
-shared_ptr<Program> prog1;
-//shared_ptr<Program> prog2;
-//shared_ptr<Shape> world;
-//shared_ptr<Shape> shape;
+shared_ptr<Program> marioProg;
+shared_ptr<Program> worldProg;
 vector<shared_ptr<Shape>> mario;
 vector<shared_ptr<Shape>> thwomp;
 vector<shared_ptr<Shape>> whomp;
@@ -97,7 +94,8 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
         target.z += cspeed * w.z;
     }
     
-    view = glm::lookAt(eye, target, upV);}
+    view = glm::lookAt(eye, target, upV);
+}
 
 float p2wx(double in_x, float left) {
 	float c = (-2*left)/(g_width-1.0);
@@ -147,60 +145,6 @@ static void cursor_callback(GLFWwindow *window, double xpos, double ypos) {
     view = glm::lookAt(eye, target, upV);
 }
 
-float g_groundSize = 200;
-float g_groundY = -1.5;
-
-/* code to define the ground plane */
-static void initGeom() {
-  // A x-z plane at y = g_groundY of dimension [-g_groundSize, g_groundSize]^2
-    float GrndPos[] = {
-    -g_groundSize, g_groundY, -g_groundSize,
-    -g_groundSize, g_groundY,  g_groundSize,
-     g_groundSize, g_groundY,  g_groundSize,
-     g_groundSize, g_groundY, -g_groundSize
-    };
-
-    float GrndNorm[] = {
-     0, 1, 0,
-     0, 1, 0,
-     0, 1, 0,
-     0, 1, 0,
-     0, 1, 0,
-     0, 1, 0
-    };
-
-  static GLfloat GrndTex[] = {
-      0, 0, // back
-      0, 1,
-      1, 1,
-      1, 0 };
-
-   unsigned short idx[] = {0, 1, 2, 0, 2, 3};
-
-   GLuint VertexArrayID;
-	//generate the VAO
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-    g_GiboLen = 6;
-    glGenBuffers(1, &GrndBuffObj);
-    glBindBuffer(GL_ARRAY_BUFFER, GrndBuffObj);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GrndPos), GrndPos, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &GrndNorBuffObj);
-    glBindBuffer(GL_ARRAY_BUFFER, GrndNorBuffObj);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GrndNorm), GrndNorm, GL_STATIC_DRAW);
-    
-	 glGenBuffers(1, &GrndTexBuffObj);
-    glBindBuffer(GL_ARRAY_BUFFER, GrndTexBuffObj);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GrndTex), GrndTex, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &GIndxBuffObj);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GIndxBuffObj);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(idx), idx, GL_STATIC_DRAW);
-
-}
-
 static void init()
 {
 	GLSL::checkVersion();
@@ -209,6 +153,11 @@ static void init()
 	glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
 	// Enable z-buffer test.
 	glEnable(GL_DEPTH_TEST);
+
+    GLuint VertexArrayID;
+    //generate the VAO
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
 
     vector<tinyobj::shape_t> TOshapes;
     vector<tinyobj::material_t> objMaterials;
@@ -225,7 +174,7 @@ static void init()
         for (int i=0; i < TOshapes.size(); i++) {
             shared_ptr<Shape> shape = make_shared<Shape>();
             int matId = TOshapes.at(i).mesh.material_ids.at(0);
-            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "mario/");
             shape->measure();
             shape->init();
             
@@ -240,75 +189,76 @@ static void init()
             mario.push_back(shape);
         }
     }
-
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
-    if (!rc) {
-        cerr << errStr << endl;
-    } else {
-        for (int i=0; i < TOshapes.size(); i++) {
-            shared_ptr<Shape> shape = make_shared<Shape>();
-            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
-            shape->measure();
-            shape->init();
-            
-            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-            
-            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-            
-            thwomp.push_back(shape);
-        }
-    }
+//    GLSL::checkError();
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/Whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
-    if (!rc) {
-        cerr << errStr << endl;
-    } else {
-        for (int i=0; i < TOshapes.size(); i++) {
-            shared_ptr<Shape> shape = make_shared<Shape>();
-            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
-            shape->measure();
-            shape->init();
-            
-            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-            
-            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-            
-            whomp.push_back(shape);
-        }
-    }
+//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/WF.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
+//    if (!rc) {
+//        cerr << errStr << endl;
+//    } else {
+//        for (int i=0; i < TOshapes.size(); i++) {
+//            shared_ptr<Shape> shape = make_shared<Shape>();
+//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "world/");
+//            shape->measure();
+//            shape->init();
+//            
+//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+//            
+//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+//            
+//            world.push_back(shape);
+//        }
+//    }
     
-    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/WF.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
-    if (!rc) {
-        cerr << errStr << endl;
-    } else {
-        for (int i=0; i < TOshapes.size(); i++) {
-            shared_ptr<Shape> shape = make_shared<Shape>();
-            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-            shape->createShape(TOshapes.at(i), objMaterials.at(matId));
-            shape->measure();
-            shape->init();
-            
-            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-            
-            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-            
-            world.push_back(shape);
-        }
-    }
+//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
+//    if (!rc) {
+//        cerr << errStr << endl;
+//    } else {
+//        for (int i=0; i < TOshapes.size(); i++) {
+//            shared_ptr<Shape> shape = make_shared<Shape>();
+//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "thwomp/");
+//            shape->measure();
+//            shape->init();
+//            
+//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+//            
+//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+//            
+//            thwomp.push_back(shape);
+//        }
+//    }
+//    
+//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/Whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
+//    if (!rc) {
+//        cerr << errStr << endl;
+//    } else {
+//        for (int i=0; i < TOshapes.size(); i++) {
+//            shared_ptr<Shape> shape = make_shared<Shape>();
+//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "whomp/");
+//            shape->measure();
+//            shape->init();
+//            
+//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+//            
+//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+//            
+//            whomp.push_back(shape);
+//        }
+//    }
     
     float maxExtent, xExtent, yExtent, zExtent;
     xExtent = Gmax.x-Gmin.x;
@@ -351,29 +301,17 @@ static void init()
     };
     
     view = glm::lookAt(eye, target, upV);
-    
-    for (int i = 0; i < 15; ++i) {
-        thwompIdxs.push_back(vec3(rand() % int(2 * g_groundSize + 1) - g_groundSize, 25, rand() % int(2 * g_groundSize + 1) - g_groundSize));
-        whompIdxs.push_back(vec3(rand() % int(2 * g_groundSize + 1) - g_groundSize, 5, rand() % int(2 * g_groundSize + 1) - g_groundSize));
-        thwompYaws.push_back(radians(float(rand() % 360)));
-        whompYaws.push_back(radians(float(rand() % 360)));
-    }
 
 	// Initialize the GLSL programs
-	prog0 = make_shared<Program>();
-	prog0->setVerbose(true);
-	prog0->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
-	prog0->init();
+	marioProg = make_shared<Program>();
+	marioProg->setVerbose(true);
+	marioProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
+	marioProg->init();
 	
-	prog1 = make_shared<Program>();
-	prog1->setVerbose(true);
-	prog1->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
-	prog1->init();
-  
-//	prog2 = make_shared<Program>();
-//	prog2->setVerbose(true);
-//	prog2->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag2.glsl");
-//	prog2->init();
+//	worldProg = make_shared<Program>();
+//	worldProg->setVerbose(true);
+//	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
+//	worldProg->init();
 	
 	//////////////////////////////////////////////////////
    // Intialize textures
@@ -389,55 +327,35 @@ static void init()
 //   texture1->init();
 //   texture1->setUnit(1);
 //   texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-   
-//	texture2 = make_shared<Texture>();
-//   texture2->setFilename(RESOURCE_DIR + "grass.jpg");
-//   texture2->init();
-//   texture2->setUnit(2);
-//   texture2->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
 	/// Add uniform and attributes to each of the programs
-	prog0->addUniform("P");
-	prog0->addUniform("M");
-    prog0->addUniform("V");
-    prog0->addUniform("lightPos");
-    prog0->addUniform("lightIntensity");
-    prog0->addUniform("MatAmb");
-    prog0->addUniform("MatDif");
-    prog0->addUniform("MatSpec");
-    prog0->addUniform("shine");
-	prog0->addAttribute("vertPos");
-    prog0->addAttribute("vertNor");
-	prog0->addAttribute("vertTex");
-    prog0->addUniform("Texture");
+	marioProg->addUniform("P");
+	marioProg->addUniform("M");
+    marioProg->addUniform("V");
+    marioProg->addUniform("lightPos");
+    marioProg->addUniform("lightIntensity");
+    marioProg->addUniform("MatAmb");
+    marioProg->addUniform("MatDif");
+    marioProg->addUniform("MatSpec");
+    marioProg->addUniform("shine");
+	marioProg->addAttribute("vertPos");
+    marioProg->addAttribute("vertNor");
+	marioProg->addAttribute("vertTex");
+    marioProg->addUniform("Texture");
 	
-	prog1->addUniform("P");
-	prog1->addUniform("M");
-    prog1->addUniform("V");
-    prog1->addUniform("lightPos");
-    prog1->addUniform("lightIntensity");
-    prog1->addUniform("MatAmb");
-    prog1->addUniform("MatDif");
-    prog1->addUniform("MatSpec");
-    prog1->addUniform("shine");
-	prog1->addAttribute("vertPos");
-    prog1->addAttribute("vertNor");
-	prog1->addAttribute("vertTex");
-    prog1->addUniform("Texture");
-	
-//	prog2->addUniform("P");
-//	prog2->addUniform("M");
-//    prog2->addUniform("V");
-//    prog2->addUniform("lightPos");
-//    prog2->addUniform("lightIntensity");
-//    prog2->addUniform("MatAmb");
-//    prog2->addUniform("MatDif");
-//    prog2->addUniform("MatSpec");
-//    prog2->addUniform("shine");
-//	prog2->addAttribute("vertPos");
-//    prog2->addAttribute("vertNor");
-// 	prog2->addAttribute("vertTex");
-//    prog2->addUniform("Texture2");
+//	worldProg->addUniform("P");
+//	worldProg->addUniform("M");
+//    worldProg->addUniform("V");
+//    worldProg->addUniform("lightPos");
+//    worldProg->addUniform("lightIntensity");
+//    worldProg->addUniform("MatAmb");
+//    worldProg->addUniform("MatDif");
+//    worldProg->addUniform("MatSpec");
+//    worldProg->addUniform("shine");
+//	worldProg->addAttribute("vertPos");
+//    worldProg->addAttribute("vertNor");
+//	worldProg->addAttribute("vertTex");
+//    worldProg->addUniform("Texture");
 }
 
 
@@ -452,6 +370,7 @@ static void render()
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	float aspect = width/(float)height;
+    GLSL::checkError();
 	glViewport(0, 0, width, height);
 
 	// Clear framebuffer.
@@ -470,22 +389,23 @@ static void render()
         MV->translate(-1.0f * g_trans);
 
         //draw the mario mesh
-        prog0->bind();
+        marioProg->bind();
         MV->pushMatrix();
-//            MV->translate(vec3(-1, 0, 0));
+            MV->translate(vec3(-1, 0, 0));
 //           MV->rotate(cTheta, vec3(0, 1, 0));
 //            MV->scale(vec3(0.2,0.2,0.2));
 //            texture0->bind(prog0->getUniform("Texture0"));
-            glUniformMatrix4fv(prog0->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-            glUniformMatrix4fv(prog0->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-            glUniformMatrix4fv(prog0->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-            glUniform3fv(prog0->getUniform("lightPos"), 1, value_ptr(light->pos));
-            glUniform3fv(prog0->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
+            glUniformMatrix4fv(marioProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
+            glUniformMatrix4fv(marioProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
+            glUniformMatrix4fv(marioProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(marioProg->getUniform("lightPos"), 1, value_ptr(light->pos));
+            glUniform3fv(marioProg->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < mario.size(); ++i) {
-                mario[i]->draw(prog0);
+                mario[i]->draw(marioProg);
+                GLSL::checkError();
             }
         MV->popMatrix();
-        prog0->unbind();
+        marioProg->unbind();
 
 //        draw the world sphere
 //        prog1->bind();
@@ -507,36 +427,6 @@ static void render()
 //            glDisableVertexAttribArray(2);
 //        MV->popMatrix();
 //        prog1->unbind();
-
-        //draw the ground plane	
-//        prog2->bind();
-//        MV->pushMatrix();
-//            texture2->bind(prog2->getUniform("Texture2"));
-//            glUniformMatrix4fv(prog2->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-//            glUniformMatrix4fv(prog2->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-//            glUniformMatrix4fv(prog2->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-//
-//            glEnableVertexAttribArray(0);
-//            glBindBuffer(GL_ARRAY_BUFFER, GrndBuffObj);
-//            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-//
-//            glEnableVertexAttribArray(1);
-//            glBindBuffer(GL_ARRAY_BUFFER, GrndNorBuffObj);
-//            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-//             
-//            glEnableVertexAttribArray(2);
-//            glBindBuffer(GL_ARRAY_BUFFER, GrndTexBuffObj);
-//            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-//
-//            // draw!
-//            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GIndxBuffObj);
-//            glDrawElements(GL_TRIANGLES, g_GiboLen, GL_UNSIGNED_SHORT, 0);
-//
-//            glDisableVertexAttribArray(0);
-//            glDisableVertexAttribArray(1);
-//            glDisableVertexAttribArray(2);
-//        MV->popMatrix();
-//        prog2->unbind();
     
     MV->popMatrix();
 	P->popMatrix();
@@ -544,7 +434,6 @@ static void render()
 
 int main(int argc, char **argv)
 {
-
 	g_width = 640;
 	g_height = 480;
 	/* we will always need to load external shaders to set up where */
@@ -607,9 +496,10 @@ int main(int argc, char **argv)
     cout << "done initializing shaders" << endl;
 //	initGeom();
 //	cout << "done initializing geometry" << endl;
-
+    GLSL::checkError();
 	// Loop until the user closes the window.
 	while(!glfwWindowShouldClose(window)) {
+        
 		// Render scene.
 		render();
 		// Swap front and back buffers.

@@ -8,6 +8,9 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
 
+#define GLEE_OVERWRITE_GL_FUNCTIONS
+#include "glee.hpp"
+
 using namespace std;
 
 Shape::Shape() :
@@ -26,7 +29,7 @@ Shape::~Shape()
 }
 
 /* copy the data from the shape to this object */
-void Shape::createShape(tinyobj::shape_t & shape, tinyobj::material_t &objMaterial)
+void Shape::createShape(tinyobj::shape_t & shape, tinyobj::material_t &objMaterial, const string resourceDir)
 {
     posBuf = shape.mesh.positions;
     norBuf = shape.mesh.normals;
@@ -38,7 +41,7 @@ void Shape::createShape(tinyobj::shape_t & shape, tinyobj::material_t &objMateri
     
     if (material.ambient_texname.length() > 0) {
         texture = make_shared<Texture>();
-        texture->setFilename("../../resources/mario/" + material.ambient_texname);
+        texture->setFilename(resourceDir + material.ambient_texname);
         texture->init();
         texture->setUnit(0);
         texture->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
@@ -269,6 +272,9 @@ void Shape::draw(const shared_ptr<Program> prog) const
 		GLSL::disableVertexAttribArray(h_nor);
 	}
 	GLSL::disableVertexAttribArray(h_pos);
+    if (texture != nullptr) {
+        texture->unbind();
+    }
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
