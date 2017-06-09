@@ -39,7 +39,6 @@ private:
 	unsigned posBufID;
 	unsigned norBufID;
 	unsigned texBufID;
-    unsigned matBufID;
 };
 
 #endif

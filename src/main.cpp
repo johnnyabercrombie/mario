@@ -312,21 +312,6 @@ static void init()
 	worldProg->setVerbose(true);
 	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
 	worldProg->init();
-	
-	//////////////////////////////////////////////////////
-   // Intialize textures
-   //////////////////////////////////////////////////////
-//   texture0 = make_shared<Texture>();
-//   texture0->setFilename(RESOURCE_DIR + "mario/Logo.png");
-//   texture0->init();
-//   texture0->setUnit(0);
-//   texture0->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-
-//   texture1 = make_shared<Texture>();
-//   texture1->setFilename(RESOURCE_DIR + "world/2C725067_c.png");
-//   texture1->init();
-//   texture1->setUnit(1);
-//   texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
 	/// Add uniform and attributes to each of the programs
 	marioProg->addUniform("P");
@@ -388,13 +373,9 @@ static void render()
         MV->scale(g_scale);
         MV->translate(-1.0f * g_trans);
 
-        //draw the mario mesh
+        // draw the mario mesh
         marioProg->bind();
         MV->pushMatrix();
-            MV->translate(vec3(-1, 0, 0));
-//           MV->rotate(cTheta, vec3(0, 1, 0));
-//            MV->scale(vec3(0.2,0.2,0.2));
-//            texture0->bind(prog0->getUniform("Texture0"));
             glUniformMatrix4fv(marioProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
@@ -407,13 +388,10 @@ static void render()
         MV->popMatrix();
         marioProg->unbind();
 
-//        draw the world sphere
+        // draw the world sphere
         worldProg->bind();
         MV->pushMatrix();
-            MV->translate(vec3(1, 0, 0));
-    //            MV->rotate(cTheta, vec3(0, 1, 0));
-            MV->scale(vec3(10,10,10));
-//            texture1->bind(prog1->getUniform("Texture1"));
+            MV->scale(vec3(15, 15, 15));
             glUniformMatrix4fv(worldProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
@@ -422,9 +400,6 @@ static void render()
             for (int i = 0; i < world.size(); ++i) {
                 world[i]->draw(worldProg);
             }
-//            glDisableVertexAttribArray(0);
-//            glDisableVertexAttribArray(1);
-//            glDisableVertexAttribArray(2);
         MV->popMatrix();
         worldProg->unbind();
     
@@ -434,8 +409,8 @@ static void render()
 
 int main(int argc, char **argv)
 {
-	g_width = 640;
-	g_height = 480;
+	g_width = 640 * 1.5;
+	g_height = 480 * 1.5;
 	/* we will always need to load external shaders to set up where */
 	if(argc < 2) {
       cout << "Please specify the resource directory." << endl;
@@ -494,12 +469,9 @@ int main(int argc, char **argv)
 	// Initialize scene.
     init();
     cout << "done initializing shaders" << endl;
-//	initGeom();
-//	cout << "done initializing geometry" << endl;
-    GLSL::checkError();
+    
 	// Loop until the user closes the window.
 	while(!glfwWindowShouldClose(window)) {
-        
 		// Render scene.
 		render();
 		// Swap front and back buffers.

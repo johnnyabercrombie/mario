@@ -17,8 +17,7 @@ Shape::Shape() :
 	eleBufID(0),
 	posBufID(0),
 	norBufID(0),
-	texBufID(0),
-    matBufID(0)
+	texBufID(0)
 {
     min = glm::vec3(0);
     max = glm::vec3(0);
