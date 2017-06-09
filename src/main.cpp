@@ -191,28 +191,28 @@ static void init()
     }
 //    GLSL::checkError();
     
-//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/WF.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
-//    if (!rc) {
-//        cerr << errStr << endl;
-//    } else {
-//        for (int i=0; i < TOshapes.size(); i++) {
-//            shared_ptr<Shape> shape = make_shared<Shape>();
-//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "world/");
-//            shape->measure();
-//            shape->init();
-//            
-//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-//            
-//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-//            
-//            world.push_back(shape);
-//        }
-//    }
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "world/WF.obj").c_str(), (RESOURCE_DIR + "world/").c_str());
+    if (!rc) {
+        cerr << errStr << endl;
+    } else {
+        for (int i=0; i < TOshapes.size(); i++) {
+            shared_ptr<Shape> shape = make_shared<Shape>();
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "world/");
+            shape->measure();
+            shape->init();
+            
+            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+            
+            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+            
+            world.push_back(shape);
+        }
+    }
     
 //    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
 //    if (!rc) {
@@ -308,10 +308,10 @@ static void init()
 	marioProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
 	marioProg->init();
 	
-//	worldProg = make_shared<Program>();
-//	worldProg->setVerbose(true);
-//	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
-//	worldProg->init();
+	worldProg = make_shared<Program>();
+	worldProg->setVerbose(true);
+	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
+	worldProg->init();
 	
 	//////////////////////////////////////////////////////
    // Intialize textures
@@ -343,19 +343,19 @@ static void init()
 	marioProg->addAttribute("vertTex");
     marioProg->addUniform("Texture");
 	
-//	worldProg->addUniform("P");
-//	worldProg->addUniform("M");
-//    worldProg->addUniform("V");
-//    worldProg->addUniform("lightPos");
-//    worldProg->addUniform("lightIntensity");
-//    worldProg->addUniform("MatAmb");
-//    worldProg->addUniform("MatDif");
-//    worldProg->addUniform("MatSpec");
-//    worldProg->addUniform("shine");
-//	worldProg->addAttribute("vertPos");
-//    worldProg->addAttribute("vertNor");
-//	worldProg->addAttribute("vertTex");
-//    worldProg->addUniform("Texture");
+	worldProg->addUniform("P");
+	worldProg->addUniform("M");
+    worldProg->addUniform("V");
+    worldProg->addUniform("lightPos");
+    worldProg->addUniform("lightIntensity");
+    worldProg->addUniform("MatAmb");
+    worldProg->addUniform("MatDif");
+    worldProg->addUniform("MatSpec");
+    worldProg->addUniform("shine");
+	worldProg->addAttribute("vertPos");
+    worldProg->addAttribute("vertNor");
+	worldProg->addAttribute("vertTex");
+    worldProg->addUniform("Texture");
 }
 
 
@@ -408,25 +408,25 @@ static void render()
         marioProg->unbind();
 
 //        draw the world sphere
-//        prog1->bind();
-//        MV->pushMatrix();
-////            MV->translate(vec3(1, 0, 0));
-//    //            MV->rotate(cTheta, vec3(0, 1, 0));
-//            MV->scale(vec3(10,10,10));
-////            texture1->bind(prog1->getUniform("Texture1"));
-////            glUniformMatrix4fv(prog1->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
-//            glUniformMatrix4fv(prog1->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
-//            glUniformMatrix4fv(prog1->getUniform("V"), 1, GL_FALSE, value_ptr(view));
-//            glUniform3fv(prog1->getUniform("lightPos"), 1, value_ptr(light->pos));
-//            glUniform3fv(prog1->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
-//            for (int i = 0; i < world.size(); ++i) {
-//                world[i]->draw(prog1);
-//            }
+        worldProg->bind();
+        MV->pushMatrix();
+            MV->translate(vec3(1, 0, 0));
+    //            MV->rotate(cTheta, vec3(0, 1, 0));
+            MV->scale(vec3(10,10,10));
+//            texture1->bind(prog1->getUniform("Texture1"));
+            glUniformMatrix4fv(worldProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
+            glUniformMatrix4fv(worldProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
+            glUniformMatrix4fv(worldProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(worldProg->getUniform("lightPos"), 1, value_ptr(light->pos));
+            glUniform3fv(worldProg->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
+            for (int i = 0; i < world.size(); ++i) {
+                world[i]->draw(worldProg);
+            }
 //            glDisableVertexAttribArray(0);
 //            glDisableVertexAttribArray(1);
 //            glDisableVertexAttribArray(2);
-//        MV->popMatrix();
-//        prog1->unbind();
+        MV->popMatrix();
+        worldProg->unbind();
     
     MV->popMatrix();
 	P->popMatrix();
