@@ -23,7 +23,7 @@ uniform vec3 lightIntensity;
 
 void main() {
     vec3 light = normalize(lightPos - (V * M * vec4(worldPos, 0.0)).xyz);
-    vec3 h = normalize(normalize(lightPos) + normalize(vec3(0,0,0)-worldPos));
+    vec3 h = normalize(normalize(lightPos) + normalize(vec3(0, 0, 0) - worldPos));
     vec3 normal = normalize(fragNor);
     
     vec3 ambient = MatAmb * lIntensity;
@@ -33,6 +33,6 @@ void main() {
     vec4 BaseColor = vec4(ambient + diffuse + specular, 1.0);
     vec4 texColor0 = texture(Texture, vTexCoord);
   	Outcolor = vec4(texColor0.r*BaseColor.r, texColor0.g*BaseColor.g, texColor0.b*BaseColor.b, 1.0);
-  //DEBUG:Outcolor = vec4(vTexCoord.s, vTexCoord.t, 0, 1);
+//  Outcolor = vec4(vTexCoord.s, vTexCoord.t, 0, 1);
 }
 

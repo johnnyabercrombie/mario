@@ -145,7 +145,7 @@
 		4BDC696206014F63BF63EB94 /* init.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = init.c; path = "../glfw-3.2.1/src/init.c"; sourceTree = SOURCE_ROOT; };
 		5153FEB06F9B4E63A3E9264D /* MatrixStack.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MatrixStack.cpp; path = src/MatrixStack.cpp; sourceTree = SOURCE_ROOT; };
 		522F8627DCAB46E7B45427C7 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		532B18FDC1374198A907C818 /* tex_frag0.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_frag0.glsl; path = resources/tex_frag0.glsl; sourceTree = SOURCE_ROOT; };
+		532B18FDC1374198A907C818 /* tex_frag.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_frag.glsl; path = resources/tex_frag.glsl; sourceTree = SOURCE_ROOT; };
 		53C8A3E82CD3492A9574D3F9 /* cocoa_time.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = cocoa_time.c; path = "../glfw-3.2.1/src/cocoa_time.c"; sourceTree = SOURCE_ROOT; };
 		5D576288B5444526B96764E4 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		603C6CABA6164F84A74CA106 /* glfw_config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glfw_config.h; path = "../glfw-3.2.1/debug/src/glfw_config.h"; sourceTree = SOURCE_ROOT; };
@@ -195,7 +195,7 @@
 				BF5D98B479CD48B9985B6079 /* Source Files */,
 				394986873D8A4148AF16EE6F /* Header Files */,
 				B6D96D7B7D094F1994EBB9EE /* CMakeLists.txt */,
-				532B18FDC1374198A907C818 /* tex_frag0.glsl */,
+				532B18FDC1374198A907C818 /* tex_frag.glsl */,
 				8079B9C3FA3F400CAF6EB975 /* tex_vert.glsl */,
 			);
 			name = mario;

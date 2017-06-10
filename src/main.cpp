@@ -73,21 +73,86 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
     } else if(key == GLFW_KEY_E && action == GLFW_PRESS) {
         light->pos.x += 1;
     } else if (key == GLFW_KEY_A) {
+        int state1 = glfwGetKey(window, GLFW_KEY_W);
+        if (state1 == GLFW_PRESS) {
+            cout << "go diag1" << endl;
+            eye.x += cspeed * (-1 * w.x);
+            target.x += cspeed * (-1 * w.x);
+            eye.z += cspeed * (-1 * w.z);
+            target.z += cspeed * (-1 * w.z);
+        }
+        int state2 = glfwGetKey(window, GLFW_KEY_S);
+        if (state2 == GLFW_PRESS) {
+            cout << "go diag1" << endl;
+            eye.x += cspeed * w.x;
+            target.x += cspeed * w.x;
+            eye.z += cspeed * w.z;
+            target.z += cspeed * w.z;
+        }
         eye.x += cspeed * (-1 * u.x);
         target.x += cspeed * (-1 * u.x);
         eye.z += cspeed * (-1 * u.z);
         target.z += cspeed * (-1 * u.z);
     } else if (key == GLFW_KEY_D) {
+        cout << "d pressed" << endl;
+        int state1 = glfwGetKey(window, GLFW_KEY_W);
+        if (state1 == GLFW_PRESS) {
+            cout << "go diag1" << endl;
+            eye.x += cspeed * (-1 * w.x);
+            target.x += cspeed * (-1 * w.x);
+            eye.z += cspeed * (-1 * w.z);
+            target.z += cspeed * (-1 * w.z);
+        }
+        int state2 = glfwGetKey(window, GLFW_KEY_S);
+        if (state2 == GLFW_PRESS) {
+            cout << "go diag1" << endl;
+            eye.x += cspeed * w.x;
+            target.x += cspeed * w.x;
+            eye.z += cspeed * w.z;
+            target.z += cspeed * w.z;
+        }
         eye.x += cspeed * u.x;
         target.x += cspeed * u.x;
         eye.z += cspeed * u.z;
         target.z += cspeed * u.z;
     } else if (key == GLFW_KEY_W) {
+        int state1 = glfwGetKey(window, GLFW_KEY_D);
+        if (state1 == GLFW_PRESS) {
+            cout << "go diag2" << endl;
+            eye.x += cspeed * u.x;
+            target.x += cspeed * u.x;
+            eye.z += cspeed * u.z;
+            target.z += cspeed * u.z;
+        }
+        int state2 = glfwGetKey(window, GLFW_KEY_A);
+        if (state2 == GLFW_PRESS) {
+            cout << "go diag3" << endl;
+            eye.x += cspeed * (-1 * u.x);
+            target.x += cspeed * (-1 * u.x);
+            eye.z += cspeed * (-1 * u.z);
+            target.z += cspeed * (-1 * u.z);
+        }
         eye.x += cspeed * (-1 * w.x);
         target.x += cspeed * (-1 * w.x);
         eye.z += cspeed * (-1 * w.z);
         target.z += cspeed * (-1 * w.z);
     } else if (key == GLFW_KEY_S) {
+        int state1 = glfwGetKey(window, GLFW_KEY_D);
+        if (state1 == GLFW_PRESS) {
+            cout << "go diag2" << endl;
+            eye.x += cspeed * u.x;
+            target.x += cspeed * u.x;
+            eye.z += cspeed * u.z;
+            target.z += cspeed * u.z;
+        }
+        int state2 = glfwGetKey(window, GLFW_KEY_A);
+        if (state2 == GLFW_PRESS) {
+            cout << "go diag3" << endl;
+            eye.x += cspeed * (-1 * u.x);
+            target.x += cspeed * (-1 * u.x);
+            eye.z += cspeed * (-1 * u.z);
+            target.z += cspeed * (-1 * u.z);
+        }
         eye.x += cspeed * w.x;
         target.x += cspeed * w.x;
         eye.z += cspeed * w.z;
@@ -305,12 +370,12 @@ static void init()
 	// Initialize the GLSL programs
 	marioProg = make_shared<Program>();
 	marioProg->setVerbose(true);
-	marioProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
+	marioProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag.glsl");
 	marioProg->init();
 	
 	worldProg = make_shared<Program>();
 	worldProg->setVerbose(true);
-	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag0.glsl");
+	worldProg->setShaderNames(RESOURCE_DIR + "tex_vert.glsl", RESOURCE_DIR + "tex_frag.glsl");
 	worldProg->init();
 
 	/// Add uniform and attributes to each of the programs
@@ -355,7 +420,6 @@ static void render()
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	float aspect = width/(float)height;
-    GLSL::checkError();
 	glViewport(0, 0, width, height);
 
 	// Clear framebuffer.
@@ -409,8 +473,8 @@ static void render()
 
 int main(int argc, char **argv)
 {
-	g_width = 640 * 1.5;
-	g_height = 480 * 1.5;
+	g_width = 640 * 2;
+	g_height = 480 * 2;
 	/* we will always need to load external shaders to set up where */
 	if(argc < 2) {
       cout << "Please specify the resource directory." << endl;
@@ -454,6 +518,7 @@ int main(int argc, char **argv)
 	cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1); // newly added
     
 	// Set vsync.
 	glfwSwapInterval(1);
