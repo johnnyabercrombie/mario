@@ -9,7 +9,7 @@ uniform mat4 V;
 uniform vec3 lightPos;
 uniform vec3 lightIntensity;
 
-//out vec3 vColor;
+out vec3 vColor;
 out vec2 vTexCoord;
 out vec3 fragNor;
 out vec3 lPos;
@@ -30,7 +30,7 @@ void main() {
 //  fragNor = (V * M * vec4(vertNor, 0.0)).xyz;
   fragNor = (transpose(inverse(V * M)) * vec4(vertNor, 0.0)).xyz;
   /* a color that could be blended - or be shading */
-//  vColor = vec3(max(dot(fragNor, normalize(lightDir)), 0));
+  vColor = vec3(max(dot(fragNor, normalize(lightDir)), 0));
   /* pass through the texture coordinates to be interpolated */
   vTexCoord = vertTex;
   lPos = lightPos;
