@@ -248,13 +248,21 @@ void Shape::draw(const shared_ptr<Program> prog) const
 		glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, (const void *)0);
 	}
 
-    glUniform3fv(prog->getUniform("MatAmb"), 1, material.ambient);
-    glUniform3fv(prog->getUniform("MatDif"), 1, material.diffuse);
-    glUniform3fv(prog->getUniform("MatSpec"), 1, material.specular);
+    glUniform3f(prog->getUniform("MatAmb"), material.ambient[0], material.ambient[1], material.ambient[2]);
+    glUniform3f(prog->getUniform("MatDif"), material.diffuse[0], material.diffuse[1], material.diffuse[2]);
+    glUniform3f(prog->getUniform("MatSpec"), material.specular[0], material.specular[1], material.specular[2]);
     glUniform1f(prog->getUniform("shine"), material.shininess);
+    
+//    glUniform3fv(prog->getUniform("MatAmb"), 1, material.ambient);
+//    glUniform3fv(prog->getUniform("MatDif"), 1, material.diffuse);
+//    glUniform3fv(prog->getUniform("MatSpec"), 1, material.specular);
+//    glUniform1f(prog->getUniform("shine"), material.shininess);
     
     if (texture != nullptr) {
         texture->bind(prog->getUniform("Texture"));
+        glUniform1f(prog->getUniform("hasTexture"), 1.0);
+    } else {
+        glUniform1f(prog->getUniform("hasTexture"), 0.0);
     }
 	
 	// Bind element buffer

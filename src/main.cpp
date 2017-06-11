@@ -44,11 +44,13 @@ int g_GiboLen;
 int g_width, g_height;
 float g_rotate = 0; // was -1.5
 float g_scale = 1;
+vec3 marioPos;
+float marioRot = 90;
 vec3 g_trans;
 vec3 eye, target, upV;
 vector<vec3> thwompIdxs, whompIdxs;
 vector<float> thwompYaws, whompYaws;
-float cspeed = 0.05;
+float cspeed = 0.2;
 float phi, theta;
 mat4 view;
 
@@ -97,7 +99,7 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
         cout << "d pressed" << endl;
         int state1 = glfwGetKey(window, GLFW_KEY_W);
         if (state1 == GLFW_PRESS) {
-            cout << "go diag1" << endl;
+            cout << "go diag12" << endl;
             eye.x += cspeed * (-1 * w.x);
             target.x += cspeed * (-1 * w.x);
             eye.z += cspeed * (-1 * w.z);
@@ -105,7 +107,7 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
         }
         int state2 = glfwGetKey(window, GLFW_KEY_S);
         if (state2 == GLFW_PRESS) {
-            cout << "go diag1" << endl;
+            cout << "go diag13" << endl;
             eye.x += cspeed * w.x;
             target.x += cspeed * w.x;
             eye.z += cspeed * w.z;
@@ -132,6 +134,8 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
             eye.z += cspeed * (-1 * u.z);
             target.z += cspeed * (-1 * u.z);
         }
+        marioPos.x += 400 * cspeed;
+        
         eye.x += cspeed * (-1 * w.x);
         target.x += cspeed * (-1 * w.x);
         eye.z += cspeed * (-1 * w.z);
@@ -198,8 +202,8 @@ static void cursor_callback(GLFWwindow *window, double xpos, double ypos) {
     phi += M_PI / 2 * ((oldy - ypos) / g_height);
     oldy = ypos;
     
-    if (phi > M_PI / 2) phi = M_PI / 2;
-    if (phi < - M_PI / 2) phi = -M_PI / 2;
+    if (phi > M_PI / 2) phi = M_PI / 2 - 1;
+    if (phi < - M_PI / 2) phi = -M_PI / 2 - 1;
     
     target = {
         radius * cos(phi) * cos(theta),
@@ -352,19 +356,19 @@ static void init()
     light->intensity = vec3(1, 1, 1);
     light->pos = vec3(0, 5, 0);
     
-    eye = vec3(0,1,0);
-    target = vec3(0,0,0);
+    marioPos = vec3(0,1000,-4000);
+    eye = vec3(-4,5,-8.7);
     upV = vec3(0,1,0);
     
     phi = 0;
-    theta = M_PI / 2;
+    theta = 0;
     
     target = {
         radius * cos(phi) * cos(theta),
         radius * sin(phi),
         radius * cos(phi) * cos(M_PI/2 - theta)
     };
-    
+
     view = glm::lookAt(eye, target, upV);
 
 	// Initialize the GLSL programs
@@ -392,6 +396,7 @@ static void init()
     marioProg->addAttribute("vertNor");
 	marioProg->addAttribute("vertTex");
     marioProg->addUniform("Texture");
+    marioProg->addUniform("hasTexture");
 	
 	worldProg->addUniform("P");
 	worldProg->addUniform("M");
@@ -406,6 +411,7 @@ static void init()
     worldProg->addAttribute("vertNor");
 	worldProg->addAttribute("vertTex");
     worldProg->addUniform("Texture");
+    worldProg->addUniform("hasTexture");
 }
 
 
@@ -430,7 +436,7 @@ static void render()
 	auto MV = make_shared<MatrixStack>();
 	P->pushMatrix();
     P->perspective(45.0f, aspect, 0.01f, 100.0f);
-    
+
     MV->pushMatrix();
         MV->loadIdentity();
         MV->rotate(g_rotate, vec3(1, 0, 0));
@@ -440,6 +446,12 @@ static void render()
         // draw the mario mesh
         marioProg->bind();
         MV->pushMatrix();
+            MV->translate(marioPos);
+            MV->scale(vec3(3,3,3));
+            MV->rotate(radians(marioRot), vec3(0,1,0));
+//            eye = P->topMatrix() * view * MV->topMatrix() * vec4(1);
+//            P->topMa * V * M * vec4(vertPos.xyz, 1.0);
+
             glUniformMatrix4fv(marioProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
@@ -455,7 +467,7 @@ static void render()
         // draw the world sphere
         worldProg->bind();
         MV->pushMatrix();
-            MV->scale(vec3(15, 15, 15));
+            MV->scale(vec3(50, 50, 50));
             glUniformMatrix4fv(worldProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
@@ -518,7 +530,7 @@ int main(int argc, char **argv)
 	cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1); // newly added
+//    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1); // newly added
     
 	// Set vsync.
 	glfwSwapInterval(1);
