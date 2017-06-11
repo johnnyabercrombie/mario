@@ -18,6 +18,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+//#include <BulletDynamics/btBulletDynamicsCommon.h>
+#include "btBulletDynamicsCommon.h"
+
 /* to use glee */
 #define GLEE_OVERWRITE_GL_FUNCTIONS
 #include "glee.hpp"
