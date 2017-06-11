@@ -397,6 +397,7 @@ static void init()
 	marioProg->addAttribute("vertTex");
     marioProg->addUniform("Texture");
     marioProg->addUniform("hasTexture");
+    marioProg->addUniform("eyePos");
 	
 	worldProg->addUniform("P");
 	worldProg->addUniform("M");
@@ -412,6 +413,7 @@ static void init()
 	worldProg->addAttribute("vertTex");
     worldProg->addUniform("Texture");
     worldProg->addUniform("hasTexture");
+    worldProg->addUniform("eyePos");
 }
 
 
@@ -455,6 +457,7 @@ static void render()
             glUniformMatrix4fv(marioProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(marioProg->getUniform("eyePos"), 1, value_ptr(eye));
             glUniform3fv(marioProg->getUniform("lightPos"), 1, value_ptr(light->pos));
             glUniform3fv(marioProg->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < mario.size(); ++i) {
@@ -471,6 +474,7 @@ static void render()
             glUniformMatrix4fv(worldProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(worldProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
+            glUniform3fv(worldProg->getUniform("eyePos"), 1, value_ptr(eye));
             glUniform3fv(worldProg->getUniform("lightPos"), 1, value_ptr(light->pos));
             glUniform3fv(worldProg->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < world.size(); ++i) {
