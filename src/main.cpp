@@ -18,8 +18,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-//#include <BulletDynamics/btBulletDynamicsCommon.h>
-#include "btBulletDynamicsCommon.h"
+#include <BulletDynamics/btBulletDynamicsCommon.h>
+//#include "btBulletDynamicsCommon.h"
 
 /* to use glee */
 #define GLEE_OVERWRITE_GL_FUNCTIONS
@@ -60,13 +60,11 @@ mat4 view;
 //global data for ground plane
 GLuint GrndBuffObj, GrndNorBuffObj, GrndTexBuffObj, GIndxBuffObj;
 
-static void error_callback(int error, const char *description)
-{
+static void error_callback(int error, const char *description) {
 	cerr << description << endl;
 }
 
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
+static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     vec3 camView = target - eye;
     vec3 w = vec3(-1) * normalize(camView);
     vec3 u = normalize(cross(upV, w));
@@ -206,7 +204,7 @@ static void cursor_callback(GLFWwindow *window, double xpos, double ypos) {
     oldy = ypos;
     
     if (phi > M_PI / 2) phi = M_PI / 2 - 1;
-    if (phi < - M_PI / 2) phi = -M_PI / 2 - 1;
+    if (phi < - M_PI / 2) phi = -M_PI / 2 + 1;
     
     target = {
         radius * cos(phi) * cos(theta),
@@ -217,8 +215,25 @@ static void cursor_callback(GLFWwindow *window, double xpos, double ypos) {
     view = glm::lookAt(eye, target, upV);
 }
 
-static void init()
-{
+//#include <BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h>
+//btGImpactCollisionAlgorithm::registerAlgorithm(dispatcher.get());
+
+btDefaultCollisionConfiguration *config;
+btCollisionDispatcher *dispatcher;
+btBroadphaseInterface *broadphase;
+btSequentialImpulseConstraintSolver *solver;
+btDiscreteDynamicsWorld *dynWorld;
+
+static void initPhysics() {
+    config = new btDefaultCollisionConfiguration;
+    dispatcher = new btCollisionDispatcher(config);
+    broadphase = new btDbvtBroadphase;
+    solver = new btSequentialImpulseConstraintSolver;
+    dynWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, config);
+    dynWorld->setGravity(btVector3(0, -9.8, 0));
+}
+
+static void init() {
 	GLSL::checkVersion();
 
 	// Set background color.
@@ -286,51 +301,51 @@ static void init()
         }
     }
     
-//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
-//    if (!rc) {
-//        cerr << errStr << endl;
-//    } else {
-//        for (int i=0; i < TOshapes.size(); i++) {
-//            shared_ptr<Shape> shape = make_shared<Shape>();
-//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "thwomp/");
-//            shape->measure();
-//            shape->init();
-//            
-//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-//            
-//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-//            
-//            thwomp.push_back(shape);
-//        }
-//    }
-//    
-//    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/Whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
-//    if (!rc) {
-//        cerr << errStr << endl;
-//    } else {
-//        for (int i=0; i < TOshapes.size(); i++) {
-//            shared_ptr<Shape> shape = make_shared<Shape>();
-//            int matId = TOshapes.at(i).mesh.material_ids.at(0);
-//            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "whomp/");
-//            shape->measure();
-//            shape->init();
-//            
-//            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
-//            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
-//            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
-//            
-//            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
-//            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
-//            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
-//            
-//            whomp.push_back(shape);
-//        }
-//    }
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "thwomp/Thwomp.obj").c_str(), (RESOURCE_DIR + "thwomp/").c_str());
+    if (!rc) {
+        cerr << errStr << endl;
+    } else {
+        for (int i=0; i < TOshapes.size(); i++) {
+            shared_ptr<Shape> shape = make_shared<Shape>();
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "thwomp/");
+            shape->measure();
+            shape->init();
+            
+            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+            
+            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+            
+            thwomp.push_back(shape);
+        }
+    }
+
+    rc = tinyobj::LoadObj(TOshapes, objMaterials, errStr, (RESOURCE_DIR + "whomp/Whomp.obj").c_str(), (RESOURCE_DIR + "whomp/").c_str());
+    if (!rc) {
+        cerr << errStr << endl;
+    } else {
+        for (int i=0; i < TOshapes.size(); i++) {
+            shared_ptr<Shape> shape = make_shared<Shape>();
+            int matId = TOshapes.at(i).mesh.material_ids.at(0);
+            shape->createShape(TOshapes.at(i), objMaterials.at(matId), RESOURCE_DIR + "whomp/");
+            shape->measure();
+            shape->init();
+            
+            if (shape->min.x < Gmin.x) Gmin.x = shape->min.x;
+            if (shape->min.y < Gmin.y) Gmin.y = shape->min.y;
+            if (shape->min.z < Gmin.z) Gmin.z = shape->min.z;
+            
+            if (shape->max.x > Gmax.x) Gmax.x = shape->max.x;
+            if (shape->max.y > Gmax.y) Gmax.y = shape->max.y;
+            if (shape->max.z > Gmax.z) Gmax.z = shape->max.z;
+            
+            whomp.push_back(shape);
+        }
+    }
     
     float maxExtent, xExtent, yExtent, zExtent;
     xExtent = Gmax.x-Gmin.x;
@@ -454,9 +469,6 @@ static void render()
             MV->translate(marioPos);
             MV->scale(vec3(3,3,3));
             MV->rotate(radians(marioRot), vec3(0,1,0));
-//            eye = P->topMatrix() * view * MV->topMatrix() * vec4(1);
-//            P->topMa * V * M * vec4(vertPos.xyz, 1.0);
-
             glUniformMatrix4fv(marioProg->getUniform("P"), 1, GL_FALSE, value_ptr(P->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("M"), 1, GL_FALSE, value_ptr(MV->topMatrix()));
             glUniformMatrix4fv(marioProg->getUniform("V"), 1, GL_FALSE, value_ptr(view));
@@ -465,7 +477,6 @@ static void render()
             glUniform3fv(marioProg->getUniform("lightIntensity"), 1, value_ptr(light->intensity));
             for (int i = 0; i < mario.size(); ++i) {
                 mario[i]->draw(marioProg);
-                GLSL::checkError();
             }
         MV->popMatrix();
         marioProg->unbind();
@@ -552,6 +563,7 @@ int main(int argc, char **argv)
 		may need to initialize or set up different data and state */
 	// Initialize scene.
     init();
+    initPhysics();
     cout << "done initializing shaders" << endl;
     
 	// Loop until the user closes the window.
@@ -563,6 +575,13 @@ int main(int argc, char **argv)
 		// Poll for and process events.
 		glfwPollEvents();
 	}
+    
+    delete config;
+    delete dispatcher;
+    delete broadphase;
+    delete solver;
+    delete dynWorld;
+    
 	// Quit program.
 	glfwDestroyWindow(window);
 	glfwTerminate();

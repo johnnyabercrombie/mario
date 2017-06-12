@@ -1,0 +1,1592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		76F43295041A4DE69D92EAB6 /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BCB49734A4AF44A4AF14F7BE /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				07DFEBBA752346BE8C1A1270 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				BA2874F44FFC4656B7F4D3FB /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
+		85899C97FB0D4C9EABFD8AA4 /* uninstall */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = EF6B9CADB16545C49B81B13C /* Build configuration list for PBXAggregateTarget "uninstall" */;
+			buildPhases = (
+				279735A27CA6466B90A633C5 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = uninstall;
+			productName = uninstall;
+		};
+		94F708F05B844544A3240ACF /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5B4E5F21F5BA44C280C79BAB /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				A57099E6518A40C1A10ACEB0 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+		A296CAE110F0486192B4D5B5 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C55BA23691794DE4A01F844D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				077031F732DC414C8FBF65C0 /* CMake Rules */,
+			);
+			dependencies = (
+				D1E3EF89EA61461F8C503E44 /* PBXTargetDependency */,
+				DD21281C081248C1B197A9E3 /* PBXTargetDependency */,
+				4BA95BDE8D2F485888FB93D9 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0A01729FD56D4D598C2E7EEB /* cocoa_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 956A4CFA74C4424381089CE2 /* cocoa_init.m */; };
+		0D3299C50FE345E296EEEE5D /* tiny_obj_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CBC777DAC24177841C90BE /* tiny_obj_loader.cpp */; };
+		1400D6CB00B54167975F96A3 /* cocoa_monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1DBF4743764443924B547A /* cocoa_monitor.m */; };
+		1D70230B8B8043E290B1E867 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F120ECDB74945D98D40B805 /* Texture.cpp */; };
+		2E36518F610B47598EE73BEB /* posix_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 443343A8717449E6B557EF5C /* posix_tls.c */; };
+		385C5804F833414EB0F7EEFC /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 86D632FA22584A69A4EF60BF /* vulkan.c */; };
+		3CEC5FD46EE84F99AB9A8F54 /* init.c in Sources */ = {isa = PBXBuildFile; fileRef = 34CF7A18188C4A5FB35A2BAF /* init.c */; };
+		507BF9D9DABB4BA3BF44CC7E /* monitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EC7EB0C7E4841358AF55A45 /* monitor.c */; };
+		555B3E2ADE0243C687552EB3 /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = BA2AC0CDF5BB4334A6EE831E /* input.c */; };
+		5A55C64641B0462A9B157176 /* GLSL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 628F1ED9BBC8431E934190BF /* GLSL.cpp */; };
+		6AA111B45DCF4E4AA2FF18C7 /* cocoa_window.m in Sources */ = {isa = PBXBuildFile; fileRef = FA27B7FA411549D3A0AD99B0 /* cocoa_window.m */; };
+		8B89B293071046768CC9790F /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC9406D5004644168D418F77 /* MatrixStack.cpp */; };
+		90C4CE169657403A805803B9 /* cocoa_joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = A79367DFA45F44618FA80212 /* cocoa_joystick.m */; };
+		9F35A7EA1ADA4EFFBBA6B606 /* context.c in Sources */ = {isa = PBXBuildFile; fileRef = 65F094FE441B4E68BD33F712 /* context.c */; };
+		B07FC6DFF10D4422AB813484 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0105557806774BD49CF7702F /* Program.cpp */; };
+		C22DB7DF8A194552AB8012CA /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = B823E1AD97F546A89F55F9B7 /* window.c */; };
+		D410031DB3E0417D900D1539 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E475013D4FEC4BE0BFF718E8 /* main.cpp */; };
+		DBD31FB5D75E4D2FAB0B6320 /* Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F52114C971CD44FEA3BF8D0B /* Shape.cpp */; };
+		E130C017B9814C45B28ED67E /* cocoa_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C157C518DCE42CE876328EB /* cocoa_time.c */; };
+		EADBFC296FDC46E9B3AEE93F /* nsgl_context.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FD1EF1F48C4431868D86B5 /* nsgl_context.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		23E1C7F006FB4AEC981A5286 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D46512887D1408BB3681E12;
+			remoteInfo = mario;
+		};
+		341A101575EA428C9FEE9680 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A296CAE110F0486192B4D5B5;
+			remoteInfo = ALL_BUILD;
+		};
+		5E78837165514EDBA4F6A26E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7EED50A59A44A95BA00E9C8;
+			remoteInfo = glfw;
+		};
+		803CB21AEBC94DB2A32AF54E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94F708F05B844544A3240ACF;
+			remoteInfo = ZERO_CHECK;
+		};
+		8D12805AC5014ED6A32EC196 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7EED50A59A44A95BA00E9C8;
+			remoteInfo = glfw;
+		};
+		AE31B788388946D69F97C714 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94F708F05B844544A3240ACF;
+			remoteInfo = ZERO_CHECK;
+		};
+		CAE41F9BE74F432FA55B7769 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3B3AB6B77E648C59A02BB9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94F708F05B844544A3240ACF;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0105557806774BD49CF7702F /* Program.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Program.cpp; path = src/Program.cpp; sourceTree = SOURCE_ROOT; };
+		02CBC777DAC24177841C90BE /* tiny_obj_loader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = tiny_obj_loader.cpp; path = src/tiny_obj_loader.cpp; sourceTree = SOURCE_ROOT; };
+		05F4047409484972A3E87EF3 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		16EF0A37755B4E46BB391F59 /* tex_frag1.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_frag1.glsl; path = resources/tex_frag1.glsl; sourceTree = SOURCE_ROOT; };
+		1F120ECDB74945D98D40B805 /* Texture.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Texture.cpp; path = src/Texture.cpp; sourceTree = SOURCE_ROOT; };
+		257124BEAD47428682D2B1DD /* Program.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Program.h; path = src/Program.h; sourceTree = SOURCE_ROOT; };
+		25E40D98CF26446B8B81E7EB /* cocoa_platform.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = cocoa_platform.h; path = "../glfw-3.2.1/src/cocoa_platform.h"; sourceTree = SOURCE_ROOT; };
+		2EBC626E55314E249D4568C9 /* tiny_obj_loader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tiny_obj_loader.h; path = src/tiny_obj_loader.h; sourceTree = SOURCE_ROOT; };
+		34CF7A18188C4A5FB35A2BAF /* init.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = init.c; path = "../glfw-3.2.1/src/init.c"; sourceTree = SOURCE_ROOT; };
+		3EC7EB0C7E4841358AF55A45 /* monitor.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = monitor.c; path = "../glfw-3.2.1/src/monitor.c"; sourceTree = SOURCE_ROOT; };
+		42F05E46C26540208AA454F9 /* glfw3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glfw3.h; path = "../glfw-3.2.1/include/GLFW/glfw3.h"; sourceTree = SOURCE_ROOT; };
+		443343A8717449E6B557EF5C /* posix_tls.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = posix_tls.c; path = "../glfw-3.2.1/src/posix_tls.c"; sourceTree = SOURCE_ROOT; };
+		4508943EE6884966B9545108 /* tex_vert.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_vert.glsl; path = resources/tex_vert.glsl; sourceTree = SOURCE_ROOT; };
+		4ECA411F89D34072A1B58FDC /* cocoa_joystick.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = cocoa_joystick.h; path = "../glfw-3.2.1/src/cocoa_joystick.h"; sourceTree = SOURCE_ROOT; };
+		5C157C518DCE42CE876328EB /* cocoa_time.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = cocoa_time.c; path = "../glfw-3.2.1/src/cocoa_time.c"; sourceTree = SOURCE_ROOT; };
+		628F1ED9BBC8431E934190BF /* GLSL.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = GLSL.cpp; path = src/GLSL.cpp; sourceTree = SOURCE_ROOT; };
+		6300A2E5142244BF9D5D6F2C /* internal.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = internal.h; path = "../glfw-3.2.1/src/internal.h"; sourceTree = SOURCE_ROOT; };
+		657CFADE644742F496650AC8 /* MatrixStack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MatrixStack.h; path = src/MatrixStack.h; sourceTree = SOURCE_ROOT; };
+		65F094FE441B4E68BD33F712 /* context.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = context.c; path = "../glfw-3.2.1/src/context.c"; sourceTree = SOURCE_ROOT; };
+		67C30CFF316446C6B22E6BCD /* Shape.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Shape.h; path = src/Shape.h; sourceTree = SOURCE_ROOT; };
+		6C271A6D54AE4800B36EFE9B /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		72D072C61C3E4561AF1E11EC /* nsgl_context.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = nsgl_context.h; path = "../glfw-3.2.1/src/nsgl_context.h"; sourceTree = SOURCE_ROOT; };
+		7D3934376A784E9DA7F00DD9 /* glfw3native.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glfw3native.h; path = "../glfw-3.2.1/include/GLFW/glfw3native.h"; sourceTree = SOURCE_ROOT; };
+		801F33D121D84B87A3D77F1B /* Texture.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Texture.h; path = src/Texture.h; sourceTree = SOURCE_ROOT; };
+		812B4ADE509F40EB8C99B835 /* tex_frag2.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_frag2.glsl; path = resources/tex_frag2.glsl; sourceTree = SOURCE_ROOT; };
+		86D632FA22584A69A4EF60BF /* vulkan.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = vulkan.c; path = "../glfw-3.2.1/src/vulkan.c"; sourceTree = SOURCE_ROOT; };
+		8B4C505FBBC4428484F746F0 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		90FD44B7E20A48E2AFAB0BAC /* tex_frag.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = tex_frag.glsl; path = resources/tex_frag.glsl; sourceTree = SOURCE_ROOT; };
+		956A4CFA74C4424381089CE2 /* cocoa_init.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = cocoa_init.m; path = "../glfw-3.2.1/src/cocoa_init.m"; sourceTree = SOURCE_ROOT; };
+		A79367DFA45F44618FA80212 /* cocoa_joystick.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = cocoa_joystick.m; path = "../glfw-3.2.1/src/cocoa_joystick.m"; sourceTree = SOURCE_ROOT; };
+		A91ECE9FC4024650A012702F /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "../glfw-3.2.1/src/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+		AC1DBF4743764443924B547A /* cocoa_monitor.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = cocoa_monitor.m; path = "../glfw-3.2.1/src/cocoa_monitor.m"; sourceTree = SOURCE_ROOT; };
+		AC9406D5004644168D418F77 /* MatrixStack.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MatrixStack.cpp; path = src/MatrixStack.cpp; sourceTree = SOURCE_ROOT; };
+		B24C54CD1EED419B00815742 /* BulletCollision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletCollision.framework; path = ../../../../Library/Frameworks/BulletCollision.framework; sourceTree = "<group>"; };
+		B24C54CE1EED419B00815742 /* BulletDynamics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BulletDynamics.framework; path = ../../../../Library/Frameworks/BulletDynamics.framework; sourceTree = "<group>"; };
+		B24C54CF1EED419B00815742 /* LinearMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LinearMath.framework; path = ../../../../Library/Frameworks/LinearMath.framework; sourceTree = "<group>"; };
+		B823E1AD97F546A89F55F9B7 /* window.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = window.c; path = "../glfw-3.2.1/src/window.c"; sourceTree = SOURCE_ROOT; };
+		BA2AC0CDF5BB4334A6EE831E /* input.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = input.c; path = "../glfw-3.2.1/src/input.c"; sourceTree = SOURCE_ROOT; };
+		C2570CEB284243BEB533D841 /* mario */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = mario; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D065FE8EDE48BBB7C9B24F /* libglfw3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libglfw3.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2FD1EF1F48C4431868D86B5 /* nsgl_context.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = nsgl_context.m; path = "../glfw-3.2.1/src/nsgl_context.m"; sourceTree = SOURCE_ROOT; };
+		DC844A854C294F63B30EC3A7 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "../glfw-3.2.1/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+		DD2B9DF4BA9E48C7909FB58D /* GLSL.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = GLSL.h; path = src/GLSL.h; sourceTree = SOURCE_ROOT; };
+		DFF0771EECA5496892967C33 /* posix_tls.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = posix_tls.h; path = "../glfw-3.2.1/src/posix_tls.h"; sourceTree = SOURCE_ROOT; };
+		E475013D4FEC4BE0BFF718E8 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
+		E5884EFAE999403FA8EC03B1 /* glfw_config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glfw_config.h; path = "../glfw-3.2.1/debug/src/glfw_config.h"; sourceTree = SOURCE_ROOT; };
+		E898540B60A944FAA18782D0 /* stb_image.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = stb_image.h; path = src/stb_image.h; sourceTree = SOURCE_ROOT; };
+		F52114C971CD44FEA3BF8D0B /* Shape.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Shape.cpp; path = src/Shape.cpp; sourceTree = SOURCE_ROOT; };
+		FA27B7FA411549D3A0AD99B0 /* cocoa_window.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = cocoa_window.m; path = "../glfw-3.2.1/src/cocoa_window.m"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1883257E854A497C9CD73D9D /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		1C19BA1F32CF4C59B036E56F /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				1883257E854A497C9CD73D9D /* CMake Rules */,
+				8B4C505FBBC4428484F746F0 /* CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		1E547E2AEBE74039A29E2998 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2570CEB284243BEB533D841 /* mario */,
+				D1D065FE8EDE48BBB7C9B24F /* libglfw3.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F85FB5C6E984FF6BDC96F0E /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		2B47B9DE94294BCA81C85823 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				74CB59267CDA44EEB05A7C51 /* mario */,
+				93F35A842FDA466CAEB7C6AF /* ALL_BUILD */,
+				1C19BA1F32CF4C59B036E56F /* ZERO_CHECK */,
+				381E3005B5D64DCC97833FF1 /* uninstall */,
+				DA2E79D331DE48369417E13C /* GLFW3 */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		381E3005B5D64DCC97833FF1 /* uninstall */ = {
+			isa = PBXGroup;
+			children = (
+				1F85FB5C6E984FF6BDC96F0E /* CMake Rules */,
+				DC844A854C294F63B30EC3A7 /* CMakeLists.txt */,
+			);
+			name = uninstall;
+			sourceTree = "<group>";
+		};
+		512F0C08A5254561A7F44942 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		58CB075398B64D609E046956 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				956A4CFA74C4424381089CE2 /* cocoa_init.m */,
+				A79367DFA45F44618FA80212 /* cocoa_joystick.m */,
+				AC1DBF4743764443924B547A /* cocoa_monitor.m */,
+				5C157C518DCE42CE876328EB /* cocoa_time.c */,
+				FA27B7FA411549D3A0AD99B0 /* cocoa_window.m */,
+				65F094FE441B4E68BD33F712 /* context.c */,
+				34CF7A18188C4A5FB35A2BAF /* init.c */,
+				BA2AC0CDF5BB4334A6EE831E /* input.c */,
+				3EC7EB0C7E4841358AF55A45 /* monitor.c */,
+				D2FD1EF1F48C4431868D86B5 /* nsgl_context.m */,
+				443343A8717449E6B557EF5C /* posix_tls.c */,
+				86D632FA22584A69A4EF60BF /* vulkan.c */,
+				B823E1AD97F546A89F55F9B7 /* window.c */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		74CB59267CDA44EEB05A7C51 /* mario */ = {
+			isa = PBXGroup;
+			children = (
+				EF3A3D7470424A56B52FD368 /* Source Files */,
+				DB29E68396164380BB95011E /* Header Files */,
+				6C271A6D54AE4800B36EFE9B /* CMakeLists.txt */,
+				90FD44B7E20A48E2AFAB0BAC /* tex_frag.glsl */,
+				16EF0A37755B4E46BB391F59 /* tex_frag1.glsl */,
+				812B4ADE509F40EB8C99B835 /* tex_frag2.glsl */,
+				4508943EE6884966B9545108 /* tex_vert.glsl */,
+			);
+			name = mario;
+			sourceTree = "<group>";
+		};
+		93F35A842FDA466CAEB7C6AF /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				512F0C08A5254561A7F44942 /* CMake Rules */,
+				05F4047409484972A3E87EF3 /* CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		9F6DB4CFB4114161B15E3B3D /* glfw */ = {
+			isa = PBXGroup;
+			children = (
+				58CB075398B64D609E046956 /* Source Files */,
+				C0B2C62920334CD3A8535DBD /* Header Files */,
+				A91ECE9FC4024650A012702F /* CMakeLists.txt */,
+			);
+			name = glfw;
+			sourceTree = "<group>";
+		};
+		C0B2C62920334CD3A8535DBD /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				E5884EFAE999403FA8EC03B1 /* glfw_config.h */,
+				42F05E46C26540208AA454F9 /* glfw3.h */,
+				7D3934376A784E9DA7F00DD9 /* glfw3native.h */,
+				4ECA411F89D34072A1B58FDC /* cocoa_joystick.h */,
+				25E40D98CF26446B8B81E7EB /* cocoa_platform.h */,
+				6300A2E5142244BF9D5D6F2C /* internal.h */,
+				72D072C61C3E4561AF1E11EC /* nsgl_context.h */,
+				DFF0771EECA5496892967C33 /* posix_tls.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		C585D8B9E68245A6B49158FA = {
+			isa = PBXGroup;
+			children = (
+				2B47B9DE94294BCA81C85823 /* Sources */,
+				D9A8C1B62F10424AA0A424B0 /* Resources */,
+				1E547E2AEBE74039A29E2998 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9A8C1B62F10424AA0A424B0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		DA2E79D331DE48369417E13C /* GLFW3 */ = {
+			isa = PBXGroup;
+			children = (
+				9F6DB4CFB4114161B15E3B3D /* glfw */,
+			);
+			name = GLFW3;
+			sourceTree = "<group>";
+		};
+		DB29E68396164380BB95011E /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD2B9DF4BA9E48C7909FB58D /* GLSL.h */,
+				657CFADE644742F496650AC8 /* MatrixStack.h */,
+				257124BEAD47428682D2B1DD /* Program.h */,
+				67C30CFF316446C6B22E6BCD /* Shape.h */,
+				801F33D121D84B87A3D77F1B /* Texture.h */,
+				E898540B60A944FAA18782D0 /* stb_image.h */,
+				2EBC626E55314E249D4568C9 /* tiny_obj_loader.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		EF3A3D7470424A56B52FD368 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				628F1ED9BBC8431E934190BF /* GLSL.cpp */,
+				AC9406D5004644168D418F77 /* MatrixStack.cpp */,
+				0105557806774BD49CF7702F /* Program.cpp */,
+				F52114C971CD44FEA3BF8D0B /* Shape.cpp */,
+				1F120ECDB74945D98D40B805 /* Texture.cpp */,
+				E475013D4FEC4BE0BFF718E8 /* main.cpp */,
+				02CBC777DAC24177841C90BE /* tiny_obj_loader.cpp */,
+				B24C54CD1EED419B00815742 /* BulletCollision.framework */,
+				B24C54CE1EED419B00815742 /* BulletDynamics.framework */,
+				B24C54CF1EED419B00815742 /* LinearMath.framework */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D46512887D1408BB3681E12 /* mario */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82D73D6CF761477BB3FC17AF /* Build configuration list for PBXNativeTarget "mario" */;
+			buildPhases = (
+				FC49C6BEB4104B0FBCB9644A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62878BD28F0C41319FDADB71 /* PBXTargetDependency */,
+				77271A6F23D840EAB60C8741 /* PBXTargetDependency */,
+			);
+			name = mario;
+			productName = mario;
+			productReference = C2570CEB284243BEB533D841 /* mario */;
+			productType = "com.apple.product-type.tool";
+		};
+		F7EED50A59A44A95BA00E9C8 /* glfw */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D57D3930C948471E9E57DBA6 /* Build configuration list for PBXNativeTarget "glfw" */;
+			buildPhases = (
+				396FC1E9988441CDB172C566 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB03A98B14B34464ACED10AD /* PBXTargetDependency */,
+			);
+			name = glfw;
+			productName = glfw;
+			productReference = D1D065FE8EDE48BBB7C9B24F /* libglfw3.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3B3AB6B77E648C59A02BB9F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0830;
+			};
+			buildConfigurationList = F24F0E19FF0F4F09A28F338E /* Build configuration list for PBXProject "mario" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C585D8B9E68245A6B49158FA;
+			projectDirPath = ../;
+			projectRoot = "";
+			targets = (
+				A296CAE110F0486192B4D5B5 /* ALL_BUILD */,
+				94F708F05B844544A3240ACF /* ZERO_CHECK */,
+				76F43295041A4DE69D92EAB6 /* install */,
+				4D46512887D1408BB3681E12 /* mario */,
+				85899C97FB0D4C9EABFD8AA4 /* uninstall */,
+				F7EED50A59A44A95BA00E9C8 /* glfw */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		077031F732DC414C8FBF65C0 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Johnny/Documents/mario/build -f /Users/Johnny/Documents/mario/build/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		07DFEBBA752346BE8C1A1270 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Johnny/Documents/mario/build -f /Users/Johnny/Documents/mario/build/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		279735A27CA6466B90A633C5 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Johnny/Documents/glfw-3.2.1/debug -f /Users/Johnny/Documents/glfw-3.2.1/debug/CMakeScripts/uninstall_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		A57099E6518A40C1A10ACEB0 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Johnny/Documents/mario/build -f /Users/Johnny/Documents/mario/build/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		396FC1E9988441CDB172C566 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A01729FD56D4D598C2E7EEB /* cocoa_init.m in Sources */,
+				90C4CE169657403A805803B9 /* cocoa_joystick.m in Sources */,
+				1400D6CB00B54167975F96A3 /* cocoa_monitor.m in Sources */,
+				E130C017B9814C45B28ED67E /* cocoa_time.c in Sources */,
+				6AA111B45DCF4E4AA2FF18C7 /* cocoa_window.m in Sources */,
+				9F35A7EA1ADA4EFFBBA6B606 /* context.c in Sources */,
+				3CEC5FD46EE84F99AB9A8F54 /* init.c in Sources */,
+				555B3E2ADE0243C687552EB3 /* input.c in Sources */,
+				507BF9D9DABB4BA3BF44CC7E /* monitor.c in Sources */,
+				EADBFC296FDC46E9B3AEE93F /* nsgl_context.m in Sources */,
+				2E36518F610B47598EE73BEB /* posix_tls.c in Sources */,
+				385C5804F833414EB0F7EEFC /* vulkan.c in Sources */,
+				C22DB7DF8A194552AB8012CA /* window.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC49C6BEB4104B0FBCB9644A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A55C64641B0462A9B157176 /* GLSL.cpp in Sources */,
+				8B89B293071046768CC9790F /* MatrixStack.cpp in Sources */,
+				B07FC6DFF10D4422AB813484 /* Program.cpp in Sources */,
+				DBD31FB5D75E4D2FAB0B6320 /* Shape.cpp in Sources */,
+				1D70230B8B8043E290B1E867 /* Texture.cpp in Sources */,
+				D410031DB3E0417D900D1539 /* main.cpp in Sources */,
+				0D3299C50FE345E296EEEE5D /* tiny_obj_loader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4BA95BDE8D2F485888FB93D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94F708F05B844544A3240ACF /* ZERO_CHECK */;
+			targetProxy = CAE41F9BE74F432FA55B7769 /* PBXContainerItemProxy */;
+		};
+		62878BD28F0C41319FDADB71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7EED50A59A44A95BA00E9C8 /* glfw */;
+			targetProxy = 5E78837165514EDBA4F6A26E /* PBXContainerItemProxy */;
+		};
+		77271A6F23D840EAB60C8741 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94F708F05B844544A3240ACF /* ZERO_CHECK */;
+			targetProxy = 803CB21AEBC94DB2A32AF54E /* PBXContainerItemProxy */;
+		};
+		BA2874F44FFC4656B7F4D3FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A296CAE110F0486192B4D5B5 /* ALL_BUILD */;
+			targetProxy = 341A101575EA428C9FEE9680 /* PBXContainerItemProxy */;
+		};
+		D1E3EF89EA61461F8C503E44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D46512887D1408BB3681E12 /* mario */;
+			targetProxy = 23E1C7F006FB4AEC981A5286 /* PBXContainerItemProxy */;
+		};
+		DB03A98B14B34464ACED10AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94F708F05B844544A3240ACF /* ZERO_CHECK */;
+			targetProxy = AE31B788388946D69F97C714 /* PBXContainerItemProxy */;
+		};
+		DD21281C081248C1B197A9E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7EED50A59A44A95BA00E9C8 /* glfw */;
+			targetProxy = 8D12805AC5014ED6A32EC196 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03EA2129CC87478EAFF2FF8B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					_GLFW_USE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glfw-3.2.1/src",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+					"-Wall",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/src",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = glfw3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug/src";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		0A084BEF2B5C4BFBB73FED82 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+					/Users/Johnny/Documents/bullet3/src,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/Johnny/Documents/bullet3/src/BulletDynamics/Debug /Users/Johnny/Documents/bullet3/src/BulletCollision/Debug /Users/Johnny/Documents/bullet3/src/LinearMath/Debug";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++0x",
+					"-Wall",
+					"-pedantic",
+					"-DNDEBUG",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src/RelWithDebInfo/libglfw3.a",
+					"/Users/Johnny/Documents/glew-2.0.0/lib/libGLEW.a",
+					"-framework",
+					OpenGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = mario;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		1C0B7EDA5B764719948E80BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					_GLFW_USE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glfw-3.2.1/src",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+					"-Wall",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/src",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = glfw3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug/src";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		24DD70D199354C34B942ECDB /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		3130B8AD876849DEA148BB41 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		3B7D1D238C4244D5ACEAAD0B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		624AFE58C8714EC1AB5ACEB2 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		6B5E98E139464738BA72D44F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		6CF0FB73775D4DFE898F134D /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/Johnny/Documents/mario/build/build;
+			};
+			name = RelWithDebInfo;
+		};
+		6FF9CA0B647A4236BA004085 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+					/Users/Johnny/Documents/bullet3/src,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/Johnny/Documents/bullet3/src/BulletDynamics/Debug /Users/Johnny/Documents/bullet3/src/BulletCollision/Debug /Users/Johnny/Documents/bullet3/src/LinearMath/Debug";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++0x",
+					"-Wall",
+					"-pedantic",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src/Debug/libglfw3.a",
+					"/Users/Johnny/Documents/glew-2.0.0/lib/libGLEW.a",
+					"-framework",
+					OpenGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+					/Users/Johnny/Documents/bullet3/src/BulletDynamics/Debug/libBulletDynamics.2.87.dylib,
+					/Users/Johnny/Documents/bullet3/src/BulletCollision/Debug/libBulletCollision.2.87.dylib,
+					/Users/Johnny/Documents/bullet3/src/LinearMath/Debug/libLinearMath.2.87.dylib,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = mario;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		70115636566C4918B3B6DD54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+					/Users/Johnny/Documents/bullet3/src,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/Johnny/Documents/bullet3/src/BulletDynamics/Debug /Users/Johnny/Documents/bullet3/src/BulletCollision/Debug /Users/Johnny/Documents/bullet3/src/LinearMath/Debug";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++0x",
+					"-Wall",
+					"-pedantic",
+					"-DNDEBUG",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src/Release/libglfw3.a",
+					"/Users/Johnny/Documents/glew-2.0.0/lib/libGLEW.a",
+					"-framework",
+					OpenGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = mario;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		86E75C6731BC48C5BD45AB43 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					_GLFW_USE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glfw-3.2.1/src",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+					"-Wall",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/src",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = glfw3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug/src";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		8C5D890E61714F0C838D0B53 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/Johnny/Documents/glm;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = uninstall;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		9099F44F5CE44D13BE3154C9 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		9E1D3DEF2AC849C0BAA7C044 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		A2925F8D1D2C454C9CB656ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/Johnny/Documents/mario/build/build;
+			};
+			name = Debug;
+		};
+		A58B4E5241F544B388065248 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+					/Users/Johnny/Documents/bullet3/src,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/Johnny/Documents/bullet3/src/BulletDynamics/Debug /Users/Johnny/Documents/bullet3/src/BulletCollision/Debug /Users/Johnny/Documents/bullet3/src/LinearMath/Debug";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++0x",
+					"-Wall",
+					"-pedantic",
+					"-DNDEBUG",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src/MinSizeRel/libglfw3.a",
+					"/Users/Johnny/Documents/glew-2.0.0/lib/libGLEW.a",
+					"-framework",
+					OpenGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = mario;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		B733BBB25A234E44842D289D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		B91670E26EED48FF8647B930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/Johnny/Documents/glm;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = uninstall;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		BA29171E12F44DE9B900A3EE /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/Johnny/Documents/mario/build/build;
+			};
+			name = MinSizeRel;
+		};
+		BBB94DE72A614E95AC93B56F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		D5CC6BCBD27E4F46BE28C8C6 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		D78F4237DABC4957B2AE6148 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		DA6D4D2942BB4753A5CD27D4 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/Johnny/Documents/glm;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = uninstall;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		E38647BC932149669BAC6EFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",
+					_GLFW_USE_CONFIG_H,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glfw-3.2.1/src",
+					"/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = (
+					"-fPIC",
+					"-Wall",
+					"-I/Users/Johnny/Documents/glm",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/include",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/src",
+					"-I/Users/Johnny/Documents/glfw-3.2.1/debug/src",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = glfw3;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug/src";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		E5C474F11B434561AE03F344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/Johnny/Documents/glm,
+					"/Users/Johnny/Documents/glfw-3.2.1/include",
+					"/Users/Johnny/Documents/glew-2.0.0/include",
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Johnny/Documents/mario/build;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		FBE30CF8D0BF4393ACCAE2CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /Users/Johnny/Documents/glm;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = uninstall;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/Johnny/Documents/glfw-3.2.1/debug";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		FC4AB6E185304472ADFDE28D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/Johnny/Documents/mario/build/build;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5B4E5F21F5BA44C280C79BAB /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B733BBB25A234E44842D289D /* Debug */,
+				E5C474F11B434561AE03F344 /* Release */,
+				3130B8AD876849DEA148BB41 /* MinSizeRel */,
+				3B7D1D238C4244D5ACEAAD0B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		82D73D6CF761477BB3FC17AF /* Build configuration list for PBXNativeTarget "mario" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FF9CA0B647A4236BA004085 /* Debug */,
+				70115636566C4918B3B6DD54 /* Release */,
+				A58B4E5241F544B388065248 /* MinSizeRel */,
+				0A084BEF2B5C4BFBB73FED82 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BCB49734A4AF44A4AF14F7BE /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B5E98E139464738BA72D44F /* Debug */,
+				9E1D3DEF2AC849C0BAA7C044 /* Release */,
+				D5CC6BCBD27E4F46BE28C8C6 /* MinSizeRel */,
+				24DD70D199354C34B942ECDB /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C55BA23691794DE4A01F844D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBB94DE72A614E95AC93B56F /* Debug */,
+				D78F4237DABC4957B2AE6148 /* Release */,
+				624AFE58C8714EC1AB5ACEB2 /* MinSizeRel */,
+				9099F44F5CE44D13BE3154C9 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D57D3930C948471E9E57DBA6 /* Build configuration list for PBXNativeTarget "glfw" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E38647BC932149669BAC6EFC /* Debug */,
+				1C0B7EDA5B764719948E80BF /* Release */,
+				03EA2129CC87478EAFF2FF8B /* MinSizeRel */,
+				86E75C6731BC48C5BD45AB43 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EF6B9CADB16545C49B81B13C /* Build configuration list for PBXAggregateTarget "uninstall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE30CF8D0BF4393ACCAE2CD /* Debug */,
+				B91670E26EED48FF8647B930 /* Release */,
+				8C5D890E61714F0C838D0B53 /* MinSizeRel */,
+				DA6D4D2942BB4753A5CD27D4 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F24F0E19FF0F4F09A28F338E /* Build configuration list for PBXProject "mario" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2925F8D1D2C454C9CB656ED /* Debug */,
+				FC4AB6E185304472ADFDE28D /* Release */,
+				BA29171E12F44DE9B900A3EE /* MinSizeRel */,
+				6CF0FB73775D4DFE898F134D /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3B3AB6B77E648C59A02BB9F /* Project object */;
+}
